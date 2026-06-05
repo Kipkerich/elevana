@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<body class="host_version"> 
+
+ 
+    
+  	
+    <!-- Carousel Section -->
+    <div id="carouselExampleControls" class="carousel slide bs-slider box-slider" data-ride="carousel" data-pause="hover" data-interval="6000">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleControls" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleControls" data-slide-to="1"></li>
+            <li data-target="#carouselExampleControls" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <div id="home" class="first-section" style="background-image: url('{% static 'images/elevana-landingpage-1.jpg' %}');">
+                    <div class="dtab">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 text-center">
+                                    <div class="big-tagline animate-fade-in">
+                                        <h2>Welcome to <strong>Elevana</strong></h2>
+                                        <p class="lead">Training, Transforming and Thriving individuals through intentional, responsive training programs designed for African professionals.</p>
+                                        <a href="{% url 'contact' %}" class="hover-btn-new"><span>Contact Us</span></a>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a href="{% url 'about' %}" class="hover-btn-new"><span>Learn More</span></a>
+                                    </div>
+                                </div>
+                            </div><!-- end row -->            
+                        </div><!-- end container -->
+                    </div>
+                </div><!-- end section -->
+            </div>
+            <div class="carousel-item">
+                <div id="home" class="first-section" style="background-image:url('{% static 'images/elevana-homepage-image-1.jpg'%}');">
+                    <div class="dtab">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 text-left">
+                                    <div class="big-tagline animate-fade-in">
+                                        <h2 data-animation="animated zoomInRight"><strong>Elevana</strong> Professional Training</h2>
+                                        <p class="lead" data-animation="animated fadeInLeft">Elevating Minds, Transforming Africa through world-class professional development programs.</p>
+                                        <a href="{% url 'courses' %}" class="hover-btn-new"><span>View Courses</span></a>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a href="{% url 'about' %}" class="hover-btn-new"><span>Our Story</span></a>
+                                    </div>
+                                </div>
+                            </div><!-- end row -->            
+                        </div><!-- end container -->
+                    </div>
+                </div><!-- end section -->
+            </div>
+            <div class="carousel-item">
+                <div id="home" class="first-section" style="background-image:url('images/elevana-homepage-image-1.jpg');">
+                    <div class="dtab">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 text-right">
+                                    <div class="big-tagline animate-fade-in">
+                                        <h2 data-animation="animated zoomInRight"><strong>Elevana</strong> Institute</h2>
+                                        <p class="lead" data-animation="animated fadeInLeft">Leadership, Management, and Language training programs that respond to global needs and African opportunities.</p>
+                                        <a href="contact.html" class="hover-btn-new"><span>Get Started</span></a>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a href="course-grid-2.html" class="hover-btn-new"><span>Explore Courses</span></a>
+                                    </div>
+                                </div>
+                            </div><!-- end row -->            
+                        </div><!-- end container -->
+                    </div>
+                </div><!-- end section -->
+            </div>
+            <!-- Left Control -->
+            <a class="new-effect carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="fa fa-angle-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+
+            <!-- Right Control -->
+            <a class="new-effect carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="fa fa-angle-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+	
+    <!-- About Section -->
+    <div id="overviews" class="section wb">
+        <div class="container">
+            <div class="section-title row text-center">
+                <div class="col-md-8 offset-md-2">
+                    <h3>About Elevana</h3>
+                    <p class="lead">Elevana Professional Training Institute, headquartered in Kenya, is a forward-thinking institution dedicated to empowering professionals across Africa. With plans to expand its footprint through additional offices, Elevana is positioned to address the growing demand for high-quality professional training in Africa.</p>
+                </div>
+            </div><!-- end title -->
+        
+            <div class="row align-items-center">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="message-box">
+                        <h2>Our Focus</h2>
+                        <p>The institute focuses on leadership, management, and language training, while also incorporating programs that respond to global needs, such as sustainability, artificial intelligence (AI), and digital transformation.</p>
+
+                        <p>Elevana Professional Training Institute is committed to delivering exceptional training experiences that equip professionals with the skills and knowledge needed to excel in their careers and contribute to Africa's development.</p>
+
+                        <a href="about.html" class="hover-btn-new orange"><span>Learn More</span></a>
+                    </div><!-- end messagebox -->
+                </div><!-- end col -->
+				
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="post-media wow fadeIn">
+                        <img src="images/elevana-homepage-image-1.jpg" alt="Professional Training" class="img-fluid img-rounded">
+                    </div><!-- end media -->
+                </div><!-- end col -->
+            </div>
+            
+            <hr class="invis">
+            
+            <div class="row align-items-center">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="post-media wow fadeIn">
+                        <img src="images/Elevana German Course September Intake.png" alt="Training Programs" class="img-fluid img-rounded">
+                    </div><!-- end media -->
+                </div><!-- end col -->
+				
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="message-box">
+                        <h2>Available Courses</h2>
+                        <h3>Elevating Minds, Transforming Africa</h3>
+                        <p>This mantra encapsulates Elevana's commitment to uplifting individuals through education and driving transformative change across the continent. We believe in the power of quality training to create lasting impact.</p>
+
+                        <a href="course-grid-2.html" class="hover-btn-new orange"><span>View Courses</span></a>
+                    </div><!-- end messagebox -->
+                </div><!-- end col -->
+				
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </div><!-- end section -->
+
+    <!-- Stats Section -->
+    <div class="section cl">
+        <div class="container">
+            <div class="row text-center stat-wrap">
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <span data-scroll class="global-radius icon_wrap effect-1"><i class="flaticon-study"></i></span>
+                   
+                    <h3>Professional training by expert trainers</h3>
+                </div><!-- end col -->
+
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <span data-scroll class="global-radius icon_wrap effect-1"><i class="flaticon-online"></i></span>
+                    
+                    <h3>Online or Physical classes available</h3>
+                </div><!-- end col -->
+
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <span data-scroll class="global-radius icon_wrap effect-1"><i class="flaticon-years"></i></span>
+                    
+                    <h3>Flexible classes that suites your schedule</h3>
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </div><!-- end section -->
+
+ 
+
+  
+ 
+{% endblock %}

@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">   
+   
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+    <!-- Site Metas -->
+    <title>Contact Us - Elevana Professional Training Institute</title>  
+    <meta name="keywords" content="contact Elevana, professional training Kenya, leadership courses Africa, management training Nairobi">
+    <meta name="description" content="Get in touch with Elevana Professional Training Institute. Reach out for course inquiries, partnerships, and professional development opportunities across Africa.">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="images/favicon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- ALL VERSION CSS -->
+    <link rel="stylesheet" href="css/versions.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!-- Modernizer for Portfolio -->
+    <script src="js/modernizer.js"></script>
+
+    <style>
+        /* Contact Page Specific Styles */
+        .all-title-box {
+            background: linear-gradient(135deg, #1B4B73 0%, #2a5a88 100%);
+            padding: 80px 0;
+            color: #ffffff;
+        }
+        
+        .all-title-box h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .all-title-box .m_1 {
+            display: block;
+            font-size: 1.2rem;
+            color: #F07D35;
+            margin-top: 10px;
+        }
+        
+        /* Contact Info Cards */
+        .contact-info-box {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #eaeaea;
+            height: 100%;
+        }
+        
+        .contact-info-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(27, 75, 115, 0.15);
+            border-color: #F07D35;
+        }
+        
+        .contact-icon {
+            width: 80px;
+            height: 80px;
+            background: #F07D35;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-info-box:hover .contact-icon {
+            background: #1B4B73;
+            transform: scale(1.1);
+        }
+        
+        .contact-icon i {
+            font-size: 32px;
+            color: #ffffff;
+        }
+        
+        .contact-info-box h3 {
+            color: #1B4B73;
+            font-size: 20px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .contact-info-box p {
+            color: #666;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .contact-info-box a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-info-box a:hover {
+            color: #F07D35;
+        }
+        
+        /* Contact Form Styling */
+        .contact-form {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eaeaea;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-control {
+            border: 2px solid #eaeaea;
+            border-radius: 5px;
+            padding: 12px 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            height: auto;
+        }
+        
+        .form-control:focus {
+            border-color: #F07D35;
+            box-shadow: 0 0 0 0.2rem rgba(240, 125, 53, 0.25);
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .btn-submit {
+            background: #F07D35;
+            border: 2px solid #F07D35;
+            color: #ffffff;
+            padding: 12px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn-submit:hover {
+            background: #1B4B73;
+            border-color: #1B4B73;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(27, 75, 115, 0.3);
+        }
+        
+        /* Map Section */
+        .map-container {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eaeaea;
+            position: relative;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+        
+        .map-overlay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(27, 75, 115, 0.9);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 4px solid #F07D35;
+        }
+        
+        .map-overlay h4 {
+            margin: 0 0 5px 0;
+            color: #ffffff;
+            font-size: 16px;
+        }
+        
+        .map-overlay p {
+            margin: 0;
+            font-size: 14px;
+            color: #ffffff;
+        }
+        
+        /* Office Hours */
+        .office-hours {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+        
+        .office-hours h4 {
+            color: #1B4B73;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .hours-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .hours-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .hours-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .hours-list strong {
+            color: #1B4B73;
+        }
+        
+        /* Location Details */
+        .location-details {
+            background: linear-gradient(135deg, #1B4B73 0%, #2a5a88 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .location-details h3 {
+            color: #F07D35;
+            margin-bottom: 20px;
+        }
+        
+        .location-details p {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .location-details i {
+            margin-right: 10px;
+            color: #F07D35;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .contact-form {
+                padding: 30px 20px;
+            }
+            
+            .contact-info-box {
+                margin-bottom: 30px;
+            }
+            
+            .map-overlay {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body class="host_version"> 
+
+    <!-- LOADER -->
+    <div id="preloader">
+        <div class="loader-container">
+            <div class="progress-br float shadow">
+                <div class="progress__item"></div>
+            </div>
+        </div>
+    </div>
+    <!-- END LOADER -->	
+
+    <!-- Start header -->
+    <header class="top-navbar">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">
+                    <img src="images/elevana-logo.png" alt="Elevana Professional Training Institute" />
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-host" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbars-host">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="course-grid-2.html">Courses</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a class="hover-btn-new log orange" href="contact.html"><span>Contact</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- End header -->
+	
+    <div class="all-title-box">
+        <div class="container text-center">
+            <h1>Contact Us<span class="m_1">Get in Touch with Elevana Professional Training Institute</span></h1>
+        </div>
+    </div>
+	
+    <div id="contact" class="section wb">
+        <div class="container">
+            <div class="section-title row text-center">
+                <div class="col-md-8 offset-md-2">
+                    <h3>We're Here to Help</h3>
+                    <p class="lead">Reach out to us for course inquiries, partnership opportunities, or any questions about our professional training programs. Our team is ready to assist you in your professional development journey.</p>
+                </div>
+            </div><!-- end title -->
+
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="contact-info-box">
+                        <div class="contact-icon">
+                            <i class="fa fa-map-marker"></i>
+                        </div>
+                        <h3>Our Location</h3>
+                        <p>Occidental Plaza, 2nd Floor Wing A</p>
+                        <p>Westlands, Nairobi</p>
+                        <p>Kenya Headquarters</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="contact-info-box">
+                        <div class="contact-icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <h3>Phone Number</h3>
+                        <p>+254 722 746 363</p>
+                        <p>+254 722 768 282</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="contact-info-box">
+                        <div class="contact-icon">
+                            <i class="fa fa-envelope"></i>
+                        </div>
+                        <h3>Email Address</h3>
+                        <p><a href="mailto:infoelevanapti@gmail.com">infoelevanapti@gmail.com</a></p>
+                        <p><a href="mailto:infoelevanapti@gmail.com">admissions@elevana.co.ke</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-lg-8 col-md-7 col-12">
+                    <div class="contact-form">
+                        <h3 class="mb-4" style="color: #1B4B73;">Send Us a Message</h3>
+                            <form action="https://formspree.io/f/xdkwdpzg" method="POST" id="contact-form">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="form-group">
+                                            <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="form-group">
+                                            <input type="email" name="_replyto" class="form-control" placeholder="Your Email" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="form-group">
+                                            <input type="tel" name="phone" class="form-control" placeholder="Phone Number">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="form-group">
+                                            <select name="inquiry_type" class="form-control" required>
+                                                <option value="">Select Inquiry Type</option>
+                                                <option value="course">Course Information</option>
+                                                <option value="partnership">Partnership</option>
+                                                <option value="corporate">Corporate Training</option>
+                                                <option value="general">General Inquiry</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <textarea name="message" class="form-control" placeholder="Your Message" rows="6" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn-submit">Send Message</button>
+                                    </div>
+                                </div>
+                            </form> 
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-5 col-12">
+                    <div class="office-hours">
+                        <h4>Office Hours</h4>
+                        <ul class="hours-list">
+                            <li><strong>Monday - Friday:</strong> 8:00 AM - 5:00 PM</li>
+                            <li><strong>Saturday:</strong> 9:00 AM - 2:00 PM</li>
+                            <li><strong>Sunday:</strong> Closed</li>
+                        </ul>
+                        
+                        <div class="mt-4">
+                            <h5>Emergency Contact</h5>
+                            <p>For urgent matters outside office hours:</p>
+                            <p><strong>+254 722 746 363</strong></p>
+                        </div>
+                    </div>
+                    
+                    <div class="office-hours mt-4">
+                        <h4>Follow Us</h4>
+                        <div class="footer-links-soi mt-3">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="https://www.linkedin.com/in/elevana-pti-a0a607381"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section lb">
+        <div class="container">
+            <div class="location-details">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <h3>Visit Our Campus</h3>
+                        <p><i class="fa fa-map-marker"></i> <strong>Address:</strong> Westlands, Nairobi, Kenya</p>
+                        <p><i class="fa fa-building"></i> <strong>Location:</strong> Central Westlands Business District</p>
+                        <p><i class="fa fa-road"></i> <strong>Access:</strong> Easily accessible from Waiyaki Way and surrounding areas</p>
+                        <p><i class="fa fa-clock-o"></i> <strong>Open:</strong> Monday - Friday, 8:00 AM - 5:00 PM</p>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="contact-icon" style="width: 100px; height: 100px; margin: 0;">
+                            <i class="fa fa-graduation-cap" style="font-size: 40px;"></i>
+                        </div>
+                        <p class="mt-3">Welcome to Elevana!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-12">
+                    <div class="map-container">
+                        <div class="map-overlay">
+                            <h4>Elevana Professional Training Institute</h4>
+                            <p>Westlands, Nairobi, Kenya</p>
+                        </div>
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63840.83874091705!2d36.77706914692735!3d-1.268338388381235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1738c7c78d2f%3A0x2d5a1b1c1c1c1c1c!2sWestlands%2C%20Nairobi%2C%20Kenya!5e0!3m2!1sen!2ske!4v1620000000000!5m2!1sen!2ske" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-4">
+                <div class="col-lg-4 col-md-6 col-12 mb-3">
+                    <div class="contact-info-box">
+                        <div class="contact-icon">
+                            <i class="fa fa-bus"></i>
+                        </div>
+                        <h3>Public Transport</h3>
+                        <p>Matatus to Westlands</p>
+                        <p>Multiple bus routes available</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 col-12 mb-3">
+                    <div class="contact-info-box">
+                        <div class="contact-icon">
+                            <i class="fa fa-car"></i>
+                        </div>
+                        <h3>Parking</h3>
+                        <p>Secure parking available</p>
+                        <p>Visitor slots reserved</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 col-12 mb-3">
+                    <div class="contact-info-box">
+                        <div class="contact-icon">
+                            <i class="fa fa-wheelchair"></i>
+                        </div>
+                        <h3>Accessibility</h3>
+                        <p>Wheelchair accessible</p>
+                        <p>Elevator available</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-xs-12">
+                    <div class="widget clearfix">
+                        <div class="widget-title">
+                            <h3>About Elevana</h3>
+                        </div>
+                        <p>Elevana Professional Training Institute is dedicated to empowering professionals across Africa through world-class training programs in leadership, management, and language development.</p>   
+                        <div class="footer-right">
+                            <ul class="footer-links-soi">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="https://www.linkedin.com/in/elevana-pti-a0a607381"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                            </ul><!-- end links -->
+                        </div>						
+                    </div><!-- end clearfix -->
+                </div><!-- end col -->
+
+                <div class="col-lg-4 col-md-4 col-xs-12">
+                    <div class="widget clearfix">
+                        <div class="widget-title">
+                            <h3>Quick Links</h3>
+                        </div>
+                        <ul class="footer-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="course-grid-2.html">Our Courses</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="#">Careers</a></li>
+                        </ul><!-- end links -->
+                    </div><!-- end clearfix -->
+                </div><!-- end col -->
+                
+                <div class="col-lg-4 col-md-4 col-xs-12">
+                    <div class="widget clearfix">
+                        <div class="widget-title">
+                            <h3>Contact Us</h3>
+                        </div>
+
+                        <ul class="footer-links">
+                            <li><i class="fa fa-envelope"></i> <a href="mailto:infoelevanapti@gmail.com">infoelevanapti@gmail.com</a></li>
+                            <li><i class="fa fa-globe"></i> <a href="#">www.elevanatraininginstute.com</a></li>
+                            <li><i class="fa fa-map-marker"></i> Westlands, Nairobi, Kenya</li>
+                            <li><i class="fa fa-phone"></i> +254 722 746 363</li>
+                            <li><i class="fa fa-phone"></i> +254 722 768 282</li>
+                        </ul><!-- end links -->
+                    </div><!-- end clearfix -->
+                </div><!-- end col -->
+                
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </footer><!-- end footer -->
+
+    <div class="copyrights">
+        <div class="container">
+            <div class="footer-distributed">
+                <div class="footer-center">                   
+                    <p class="footer-company-name">All Rights Reserved. &copy; 2024 <a href="#">Elevana Professional Training Institute</a></p>
+                </div>
+            </div>
+        </div><!-- end container -->
+    </div><!-- end copyrights -->
+
+    <a href="#" id="scroll-to-top" class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>
+
+    <!-- ALL JS FILES -->
+    <script src="js/all.js"></script>
+    <!-- ALL PLUGINS -->
+    <script src="js/custom.js"></script>
+    
+    <script>
+        // Contact Form Submission
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simple form validation
+            const formData = new FormData(this);
+            let isValid = true;
+            
+            // Check required fields
+            this.querySelectorAll('[required]').forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.style.borderColor = '#dc3545';
+                } else {
+                    field.style.borderColor = '#eaeaea';
+                }
+            });
+            
+            if (isValid) {
+                // Simulate form submission
+                const submitBtn = this.querySelector('.btn-submit');
+                const originalText = submitBtn.textContent;
+                
+                submitBtn.textContent = 'Sending...';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    alert('Thank you for your message! We will get back to you soon.');
+                    this.reset();
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }, 2000);
+            }
+        });
+
+        // Add click to call functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneNumbers = document.querySelectorAll('.contact-info-box p');
+            phoneNumbers.forEach(p => {
+                if (p.textContent.includes('+254')) {
+                    p.style.cursor = 'pointer';
+                    p.addEventListener('click', function() {
+                        const phone = this.textContent.trim();
+                        if (confirm(`Call ${phone}?`)) {
+                            window.location.href = `tel:${phone}`;
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
