@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">   
+   
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+    <!-- Site Metas -->
+    <title>About Us - Elevana Professional Training Institute</title>  
+    <meta name="keywords" content="Elevana about, professional training Kenya, leadership institute Africa, management training Nairobi">
+    <meta name="description" content="Learn about Elevana Professional Training Institute - Our mission, vision, values, and commitment to empowering African professionals through world-class training.">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="images/favicon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- ALL VERSION CSS -->
+    <link rel="stylesheet" href="css/versions.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!-- Modernizer for Portfolio -->
+    <script src="js/modernizer.js"></script>
+    
+    <style>
+        /* Enhanced Page Header */
+        .all-title-box {
+            background: linear-gradient(135deg, #1B4B73 0%, #2a5a88 100%);
+            padding: 100px 0;
+            color: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .all-title-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/pattern.png') repeat;
+            opacity: 0.1;
+        }
+        
+        .all-title-box h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .all-title-box .m_1 {
+            display: block;
+            font-size: 1.4rem;
+            color: #F07D35;
+            margin-top: 10px;
+            font-weight: 300;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Enhanced Section Titles */
+        .section-title h3 {
+            color: #1B4B73;
+            font-size: 2.5rem;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: #F07D35;
+            border-radius: 2px;
+        }
+        
+        .section-title .lead {
+            font-size: 1.2rem;
+            color: #666;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Enhanced Message Box */
+        .message-box {
+            padding: 40px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+            border-left: 4px solid #F07D35;
+        }
+        
+        .message-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(27, 75, 115, 0.15);
+        }
+        
+        .message-box h2 {
+            color: #1B4B73;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .message-box h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #F07D35;
+        }
+        
+        .message-box h4 {
+            color: #F07D35;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .message-box h3 {
+            color: #F07D35;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        .message-box p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 25px;
+        }
+        
+        /* Enhanced Mission Vision Values Section */
+        .hmv-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        .inner-hmv {
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+            padding: 40px 30px;
+            text-align: center;
+            border: 1px solid #eaeaea;
+        }
+        
+        .inner-hmv::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #F07D35;
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .inner-hmv:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(27, 75, 115, 0.2);
+        }
+        
+        .inner-hmv:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .inner-hmv.active {
+            background: linear-gradient(135deg, #1B4B73 0%, #2a5a88 100%);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(27, 75, 115, 0.3);
+        }
+        
+        .inner-hmv.active h3,
+        .inner-hmv.active p {
+            color: #ffffff !important;
+        }
+        
+        .icon-box-hmv {
+            width: 100px;
+            height: 100px;
+            border: 3px solid #1B4B73;
+            background: transparent;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .icon-box-hmv i {
+            color: #F07D35;
+            font-size: 40px;
+            transition: all 0.4s ease;
+        }
+        
+        .inner-hmv:hover .icon-box-hmv {
+            border-color: #F07D35;
+            background: #F07D35;
+            transform: rotate(360deg) scale(1.1);
+        }
+        
+        .inner-hmv:hover .icon-box-hmv i {
+            color: #ffffff;
+        }
+        
+        .inner-hmv.active .icon-box-hmv {
+            border: 3px solid #ffffff;
+            background: #F07D35;
+        }
+        
+        .inner-hmv.active .icon-box-hmv i {
+            color: #ffffff;
+        }
+        
+        .inner-hmv h3 {
+            color: #1B4B73;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .inner-hmv:hover h3 {
+            color: #F07D35;
+        }
+        
+        .inner-hmv p {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.7;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .tr-pa {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 120px;
+            font-weight: 900;
+            color: rgba(27, 75, 115, 0.03);
+            z-index: 1;
+            transition: all 0.4s ease;
+        }
+        
+        .inner-hmv.active .tr-pa {
+            color: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Enhanced Images */
+        .post-media {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .img-rounded {
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s ease;
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            object-fit: cover;
+        }
+        
+        .img-rounded:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Enhanced Buttons */
+        .hover-btn-new.orange {
+            background: #F07D35;
+            border: 2px solid #F07D35;
+            color: #ffffff;
+            padding: 15px 35px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hover-btn-new.orange span {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hover-btn-new.orange::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #1B4B73;
+            transition: all 0.4s ease;
+            z-index: 1;
+        }
+        
+        .hover-btn-new.orange:hover::before {
+            left: 0;
+        }
+        
+        .hover-btn-new.orange:hover {
+            border-color: #1B4B73;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(27, 75, 115, 0.3);
+        }
+        
+        /* Enhanced Footer */
+        .footer {
+            background: #1B4B73 url('images/world-map.png') no-repeat center center !important;
+            background-size: cover !important;
+            padding: 80px 0 60px !important;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(27, 75, 115, 0.95);
+        }
+        
+        .footer .widget {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Animation Enhancements */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .all-title-box h1 {
+                font-size: 2.2rem;
+            }
+            
+            .all-title-box .m_1 {
+                font-size: 1.1rem;
+            }
+            
+            .message-box {
+                padding: 25px 20px;
+            }
+            
+            .message-box h2 {
+                font-size: 1.8rem;
+            }
+            
+            .inner-hmv {
+                margin-bottom: 30px;
+                min-height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="host_version"> 
+
+    <!-- LOADER -->
+    <div id="preloader">
+        <div class="loader-container">
+            <div class="progress-br float shadow">
+                <div class="progress__item"></div>
+            </div>
+        </div>
+    </div>
+    <!-- END LOADER -->	
+    
+    <!-- Start header -->
+    <header class="top-navbar">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">
+                    <img src="images/elevana-logo.png" alt="Elevana Professional Training Institute" />
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-host" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbars-host">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="about.html">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="course-grid-2.html">Courses</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a class="hover-btn-new log orange" href="contact.html"><span>Contact</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- End header -->
+	
+    <div class="all-title-box">
+        <div class="container text-center">
+            <h1>About Us<span class="m_1">Elevating Minds, Transforming Africa</span></h1>
+        </div>
+    </div>
+	
+    <div id="overviews" class="section lb">
+        <div class="container">
+            <div class="section-title row text-center">
+                <div class="col-md-8 offset-md-2">
+                    <h3>About Elevana</h3>
+                    <p class="lead">Elevana Professional Training Institute, headquartered in Kenya, is a forward-thinking institution dedicated to empowering professionals across Africa. With plans to expand its footprint through additional offices, Elevana is positioned to address the growing demand for high-quality professional training in Africa.</p>
+                </div>
+            </div><!-- end title -->
+        
+            <div class="row align-items-center">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="message-box animate-fade-in">
+                        <h4>Elevating Minds, Transforming Africa </h4>
+                        <h2>Our Objective</h2>
+                        <p>This mantra encapsulates Elevana’s commitment to uplifting individuals through education and driving transformative change across the continent.</p>
+                        <p>The institute focuses on leadership, management, and language training, while also incorporating programs that respond to global needs, such as sustainability, artificial intelligence (AI), and digital transformation.</p>
+
+                        <p>Elevana Professional Training Institute is committed to delivering exceptional training experiences that equip professionals with the skills and knowledge needed to excel in their careers and contribute to Africa's development.</p>
+
+                        <a href="course-grid-2.html" class="hover-btn-new orange"><span>View Our Courses</span></a>
+                    </div><!-- end messagebox -->
+                </div><!-- end col -->
+				
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="post-media wow fadeIn">
+                        <img src="images/about_02.jpg" alt="Professional Training at Elevana" class="img-fluid img-rounded">
+                    </div><!-- end media -->
+                </div><!-- end col -->
+            </div>
+            
+            <hr class="invis">
+            
+            <div class="row align-items-center">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="post-media wow fadeIn">
+                        <img src="images/about_03.jpg" alt="Training Excellence at Elevana" class="img-fluid img-rounded">
+                    </div><!-- end media -->
+                </div><!-- end col -->
+				
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="message-box animate-fade-in">
+                        <h2>Our Commitment to Excellence</h2>
+                        <p>We believe in empowering professionals through high-quality, relevant training programs that address both current and emerging needs in the African market. Our courses are designed by industry experts and delivered by experienced trainers who understand the unique challenges and opportunities across the continent.</p>
+
+                        <p>With a focus on practical application and real-world scenarios, we ensure our participants gain skills they can immediately apply in their professional environments.</p>
+
+                        <a href="contact.html" class="hover-btn-new orange"><span>Contact Us</span></a>
+                    </div><!-- end messagebox -->
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </div><!-- end section -->
+	
+    <div class="hmv-box">
+        <div class="container">
+            <div class="section-title row text-center">
+                <div class="col-md-8 offset-md-2">
+                    <h3>Our Core Principles</h3>
+                    <p class="lead">Guided by our mission, vision, and values, we are committed to transforming professional development across Africa.</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="inner-hmv animate-fade-in">
+                        <div class="icon-box-hmv"><i class="flaticon-achievement"></i></div>
+                        <h3>Mission</h3>
+                        <div class="tr-pa">M</div>
+                        <p>To deliver excellence in professional training in leadership, management, languages, sustainability, and AI, through innovative in-person and online programs, fostering a new generation of African professionals equipped to address global challenges.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="inner-hmv animate-fade-in">
+                        <div class="icon-box-hmv"><i class="flaticon-eye"></i></div>
+                        <h3>Vision</h3>
+                        <div class="tr-pa">V</div>
+                        <p>To be the leading provider of transformative professional training in Africa, empowering leaders and managers with the skills to drive sustainable development and innovation.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="inner-hmv animate-fade-in">
+                        <div class="icon-box-hmv"><i class="flaticon-history"></i></div>
+                        <h3>Values</h3>
+                        <div class="tr-pa">V</div>
+                        <p><ul>
+                            <li><b>Excellence:</b> Committing to the highest standards in education and training to ensure quality outcomes.</li>
+                            <li><b>Innovation:</b>  Embracing new technologies and methodologies to enhance learning experiences..</li>
+                            <li><b>Integrity:</b>  Operating with honesty, transparency, and ethical conduct in all endeavors.</li>
+                            <li><b>Inclusivity:</b> Promoting diversity and equal opportunity in all programs to ensure accessibility for all.</li>
+                            <li><b>Sustainability:</b>  Integrating sustainable practices into operations and curriculum to contribute to a better future.</li>
+                        </ul></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-xs-12">
+                    <div class="widget clearfix">
+                        <div class="widget-title">
+                            <h3>About Elevana</h3>
+                        </div>
+                        <p>Elevana Professional Training Institute is dedicated to empowering professionals across Africa through world-class training programs in leadership, management, and language development.</p>   
+                        <div class="footer-right">
+                            <ul class="footer-links-soi">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="https://www.linkedin.com/in/elevana-pti-a0a607381"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                            </ul><!-- end links -->
+                        </div>						
+                    </div><!-- end clearfix -->
+                </div><!-- end col -->
+
+                <div class="col-lg-4 col-md-4 col-xs-12">
+                    <div class="widget clearfix">
+                        <div class="widget-title">
+                            <h3>Quick Links</h3>
+                        </div>
+                        <ul class="footer-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="course-grid-2.html">Our Courses</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="#">Careers</a></li>
+                        </ul><!-- end links -->
+                    </div><!-- end clearfix -->
+                </div><!-- end col -->
+                
+                <div class="col-lg-4 col-md-4 col-xs-12">
+                    <div class="widget clearfix">
+                        <div class="widget-title">
+                            <h3>Contact Us</h3>
+                        </div>
+
+                        <ul class="footer-links">
+                            <li><i class="fa fa-envelope"></i> <a href="mailto:infoelevanapti@gmail.com">infoelevanapti@gmail.com</a></li>
+                            <li><i class="fa fa-globe"></i> <a href="#">www.elevanatraininginstute.com</a></li>
+                            <li><i class="fa fa-map-marker"></i> Westlands,Nairobi, Kenya</li>
+                            <li><i class="fa fa-phone"></i> +254 722 746 363</li>
+                            <li><i class="fa fa-phone"></i> +254 722 768 282</li>
+                        </ul><!-- end links -->
+                    </div><!-- end clearfix -->
+                </div><!-- end col -->
+                
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </footer><!-- end footer -->
+
+    <div class="copyrights">
+        <div class="container">
+            <div class="footer-distributed">
+                <div class="footer-center">                   
+                    <p class="footer-company-name">All Rights Reserved. &copy; 2024 <a href="#">Elevana Professional Training Institute</a></p>
+                </div>
+            </div>
+        </div><!-- end container -->
+    </div><!-- end copyrights -->
+
+    <a href="#" id="scroll-to-top" class="dmtop global-radius"><i class="fa fa-angle-up"></i></a>
+
+    <!-- ALL JS FILES -->
+    <script src="js/all.js"></script>
+    <!-- ALL PLUGINS -->
+    <script src="js/custom.js"></script>
+    
+    <script>
+        // Enhanced animations and interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in');
+                    }
+                });
+            });
+
+            // Observe elements for animation
+            document.querySelectorAll('.message-box, .inner-hmv, .post-media').forEach((el) => {
+                observer.observe(el);
+            });
+
+            // Mission Vision Values Card Click Effect
+            document.querySelectorAll('.inner-hmv').forEach(card => {
+                card.addEventListener('click', function() {
+                    // Remove active class from all cards
+                    document.querySelectorAll('.inner-hmv').forEach(c => {
+                        c.classList.remove('active');
+                    });
+                    // Add active class to clicked card
+                    this.classList.add('active');
+                });
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
