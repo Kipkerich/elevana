@@ -55,7 +55,7 @@
                 </div><!-- end section -->
             </div>
             <div class="carousel-item">
-                <div id="home" class="first-section" style="background-image:url('images/elevana-homepage-image-1.jpg');">
+                <div id="home" class="first-section" style="background-image:url('{%static 'images/leadership-development.jpg'%}');">
                     <div class="dtab">
                         <div class="container">
                             <div class="row">
@@ -105,13 +105,13 @@
 
                         <p>Elevana Professional Training Institute is committed to delivering exceptional training experiences that equip professionals with the skills and knowledge needed to excel in their careers and contribute to Africa's development.</p>
 
-                        <a href="about.html" class="hover-btn-new orange"><span>Learn More</span></a>
+                        <a href="{% url 'about' %}" class="hover-btn-new orange"><span>Learn More</span></a>
                     </div><!-- end messagebox -->
                 </div><!-- end col -->
 				
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <div class="post-media wow fadeIn">
-                        <img src="images/elevana-homepage-image-1.jpg" alt="Professional Training" class="img-fluid img-rounded">
+                        <img src="{% static 'images/digital-transformation.jpg' %}" alt="Professional Training" class="img-fluid img-rounded">
                     </div><!-- end media -->
                 </div><!-- end col -->
             </div>
@@ -121,7 +121,7 @@
             <div class="row align-items-center">
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <div class="post-media wow fadeIn">
-                        <img src="images/Elevana German Course September Intake.png" alt="Training Programs" class="img-fluid img-rounded">
+                        <img src="{% static 'images/elevana-german-course-september .png' %}" alt="Training Programs" class="img-fluid img-rounded">
                     </div><!-- end media -->
                 </div><!-- end col -->
 				
@@ -131,7 +131,7 @@
                         <h3>Elevating Minds, Transforming Africa</h3>
                         <p>This mantra encapsulates Elevana's commitment to uplifting individuals through education and driving transformative change across the continent. We believe in the power of quality training to create lasting impact.</p>
 
-                        <a href="course-grid-2.html" class="hover-btn-new orange"><span>View Courses</span></a>
+                        <a href="{% url 'courses' %}" class="hover-btn-new orange"><span>View Courses</span></a>
                     </div><!-- end messagebox -->
                 </div><!-- end col -->
 				
