@@ -55,7 +55,7 @@
                 </div><!-- end section -->
             </div>
             <div class="carousel-item">
-                <div id="home" class="first-section" style="background-image:url('{%static 'images/leadership-development.jpg'%}');">
+                <div id="home" class="first-section" style="background-image:url('{%static 'images/img-01.jpg'%}');">
                     <div class="dtab">
                         <div class="container">
                             <div class="row">
@@ -63,9 +63,9 @@
                                     <div class="big-tagline animate-fade-in">
                                         <h2 data-animation="animated zoomInRight"><strong>Elevana</strong> Institute</h2>
                                         <p class="lead" data-animation="animated fadeInLeft">Leadership, Management, and Language training programs that respond to global needs and African opportunities.</p>
-                                        <a href="contact.html" class="hover-btn-new"><span>Get Started</span></a>
+                                        <a href="{% url 'contact' %}" class="hover-btn-new"><span>Get Started</span></a>
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <a href="course-grid-2.html" class="hover-btn-new"><span>Explore Courses</span></a>
+                                        <a href="{% url 'courses'%}" class="hover-btn-new"><span>Explore Courses</span></a>
                                     </div>
                                 </div>
                             </div><!-- end row -->            

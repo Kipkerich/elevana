@@ -1,2 +1,33 @@
+/* 1. Add the gradient overlay to the section holding the image */
+.first-section {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+}
 
-/** ADD YOUR AWESOME CODES HERE **/
+.first-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Whitish gradient to dim the background image */
+    background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.3));
+    z-index: 1;
+}
+
+/* 2. Style the tag-line as a translucent box */
+.big-tagline {
+    position: relative;
+    z-index: 2; /* Ensures text stays above the overlay */
+    background: rgba(255, 255, 255, 0.75); /* Translucent white box */
+    padding: 30px;
+    border-radius: 15px;
+    color: #333; /* Dark text for contrast */
+}
+
+/* Optional: Make sure the text inside the box is dark */
+.big-tagline h2, .big-tagline p {
+    color: #333 !important;
+}
