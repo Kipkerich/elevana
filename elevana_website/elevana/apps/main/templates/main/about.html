@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us | Elevana Professional Training Institute{% endblock %}
+
+{% block content %}
+   
+     
+    <div id="overviews" class="section lb">
+        <div class="container">
+            <div class="section-title row text-center">
+                <div class="col-md-8 offset-md-2">
+                    <h3>About Elevana</h3>
+                    <p class="lead">Elevana Professional Training Institute, headquartered in Kenya, is a forward-thinking institution dedicated to empowering professionals across Africa. With plans to expand its footprint through additional offices, Elevana is positioned to address the growing demand for high-quality professional training in Africa.</p>
+                </div>
+            </div>
+        
+            <div class="row align-items-center mb-5">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="message-box">
+                        <h4>Elevating Minds, Transforming Africa </h4>
+                        <h2>Our Objective</h2>
+                        <p>This mantra encapsulates Elevana’s commitment to uplifting individuals through education and driving transformative change across the continent.</p>
+                        <p>The institute focuses on leadership, management, and language training, while also incorporating programs that respond to global needs, such as sustainability, artificial intelligence (AI), and digital transformation.</p>
+                        <p>Elevana Professional Training Institute is committed to delivering exceptional training experiences that equip professionals with the skills and knowledge needed to excel in their careers and contribute to Africa's development.</p>
+                        <a href="{% url 'courses' %}" class="hover-btn-new orange"><span>View Our Courses</span></a>
+                    </div>
+                </div>
+                
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="post-media">
+                        <img src="{% static 'images/elevana-logo-big.png' %}" alt="Professional Training at Elevana" class="img-fluid img-rounded">
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="invis">
+            
+            <div class="row align-items-center">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 order-lg-1 order-2">
+                    <div class="post-media">
+                        <img src="{% static 'images/img-02.jpg' %}" alt="Training Excellence at Elevana" class="img-fluid img-rounded">
+                    </div>
+                </div>
+                
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 order-lg-2 order-1">
+                    <div class="message-box">
+                        <h2>Our Commitment to Excellence</h2>
+                        <p>We believe in empowering professionals through high-quality, relevant training programs that address both current and emerging needs in the African market. Our courses are designed by industry experts and delivered by experienced trainers who understand the unique challenges and opportunities across the continent.</p>
+                        <p>With a focus on practical application and real-world scenarios, we ensure our participants gain skills they can immediately apply in their professional environments.</p>
+                        <a href="{% url 'contact' %}" class="hover-btn-new orange"><span>Contact Us</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="hmv-box">
+        <div class="container">
+            <div class="section-title row text-center">
+                <div class="col-md-8 offset-md-2">
+                    <h3>Our Core Principles</h3>
+                    <p class="lead">Guided by our mission, vision, and values, we are committed to transforming professional development across Africa.</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="inner-hmv">
+                        <div class="icon-box-hmv"><i class="fa fa-graduation-cap"></i></div>
+                        <h3>Mission</h3>
+                        <p>To deliver excellence in professional training in leadership, management, languages, sustainability, and AI, through innovative in-person and online programs.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="inner-hmv">
+                        <div class="icon-box-hmv"><i class="fa fa-eye"></i></div>
+                        <h3>Vision</h3>
+                        <p>To be the leading provider of transformative professional training in Africa, empowering leaders and managers with the skills to drive sustainable development.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="inner-hmv">
+                        <div class="icon-box-hmv"><i class="fa fa-list-ul"></i></div>
+                        <h3>Values</h3>
+                        <ul class="text-left" style="list-style: none; padding: 0;">
+                            <li><i class="fa fa-check text-warning"></i> <b>Excellence:</b> Highest standards.</li>
+                            <li><i class="fa fa-check text-warning"></i> <b>Innovation:</b> New technologies.</li>
+                            <li><i class="fa fa-check text-warning"></i> <b>Integrity:</b> Ethical conduct.</li>
+                            <li><i class="fa fa-check text-warning"></i> <b>Inclusivity:</b> Diversity focus.</li>
+                            <li><i class="fa fa-check text-warning"></i> <b>Sustainability:</b> Better future.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

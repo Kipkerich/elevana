@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Our Departments & Courses</h1>
+    
+    {% for dept in departments %}
+        <h2 class="mt-5">{{ dept.name }}</h2>
+        <p>{{ dept.description }}</p>
+        
+        <div class="row">
+            {% for course in dept.courses.all %}
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.title }}">
+                    <div class="card-body">
+                        <h5>{{ course.title }}</h5>
+                        <p>KES {{ course.price }}</p>
+                        <a href="{% url 'course_detail' course.slug %}" class="btn btn-primary">View</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+                <p>No courses currently available in this department.</p>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

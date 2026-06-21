@@ -1,0 +1,318 @@
+/*------------------------------------------------------------------
+    ELEVANA VERSION - Updated Color Scheme
+    Primary Color: #1B4B73 (Dark Blue)
+    Secondary Color: #F07D35 (Orange)
+-------------------------------------------------------------------*/
+
+/*------------------------------------------------------------------
+    HOSTING VERSION
+-------------------------------------------------------------------*/
+
+body.host_version .icon_wrap i,
+body.host_version .customwidget li i{
+    color: #1B4B73 !important;
+}
+
+body.host_version .lead strong {
+    color: #1B4B73;
+}
+
+body.host_version .btn-light {
+    background-color: #ffffff;
+    color: #1B4B73 !important;
+}
+
+body.host_version .stat-wrap h3 {
+    color: #ffffff !important;
+}
+
+
+/**************************************
+GRADIENTS 
+**************************************/
+
+body.host_version .icon_wrap:hover,
+body.host_version .icon-wrapper:hover i,
+body.host_version .grd1 {
+    color: #ffffff !important;
+    background: #1B4B73;
+}
+
+body.host_version .stat-wrap,
+body.host_version .dmtop:hover,
+body.host_version .cac:hover,
+body.host_version .features-right li:hover i,
+body.host_version .features-left li:hover i,
+body.host_version .divider-bar,
+body.host_version .owl-next:hover i,
+body.host_version .owl-prev:hover i,
+body.host_version .icon-wrapper:hover i:hover,
+body.host_version .grd1:hover,
+body.host_version .grd1:focus {
+    background-position: 100px;
+    color: #ffffff !important;
+    background: #F07D35;
+}
+
+body.host_version .checkdomain {
+    background-color: #fff;
+    padding: 30px 0px;
+    text-align: left;
+}
+
+body.host_version .checkdomain {
+    margin-top: 0px;
+    display: block;
+    position: relative;
+}
+
+body.host_version .nav-pills > li:hover > a,
+body.host_version .nav-pills > li:focus > a{
+    background: #1B4B73;
+    color: #ffffff;
+}
+
+body.host_version .nav-pills > li > a.active,
+body.host_version .nav-pills > li > a.active:focus,
+body.host_version .nav-pills > li > a.active:hover{
+    background: #F07D35;
+    color: #ffffff;
+}
+
+
+body.host_version .checkdomain-wrapper .form-group {
+    background: #F07D35;
+    padding: 10px;
+    border: 1px solid #e9e9ec;
+    width: 100%;
+}
+
+body.host_version .checkdomain hr {
+    border-color: rgba(255, 255, 255, 0);
+    margin: 10px 0;
+}
+
+body.host_version .checkdomain-wrapper .form-control {
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid #e9e9ec;
+    box-shadow: none !important;
+    border-radius: 0;
+    width: 84%;
+    height: 50px;
+}
+
+body.host_version .checkdomain-wrapper .btn {
+    height: 50px;
+    width: 15%;
+    border: none;
+}
+
+body.host_version .icon-wrapper {
+    text-align: left;
+}
+
+body.host_version .checkdomain-wrapper .checkbox {
+    display: inline-block;
+    margin-right: 15px;
+    padding-left: 5px;
+    text-align: left;
+    width: 10%;
+    float: left;
+    position: relative;
+    background: #F07D35;
+}
+
+.checkbox-warning label{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+body.host_version .dev-list .widget p {
+    margin: 0;
+    padding: 5px 0 0;
+}
+
+body.host_version .dev-list img {
+    width: 100%;
+}
+
+body.host_version .footer-social .btn {
+    background-color: white;
+    border: 1px solid #1B4B73;
+    color: #1B4B73;
+    font-size: 20px;
+    height: 40px;
+    line-height: 40px;
+    margin: 0px;
+    padding: 0;
+    text-align: center;
+    width: 40px;
+}
+body.host_version .footer-social .btn:hover {
+    background: #F07D35;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+}
+
+body.host_version .dev-list .widget {
+    padding: 30px 0px;
+    border: 1px solid #ededed;
+    box-shadow: 0 0 8px 0 rgba(0,0,0,.08);
+}
+
+body.host_version .dev-list .widget h3 {
+    font-size: 24px;
+    font-weight: 500;
+    padding: 0 0 5px;
+    margin: 0;
+    color: #ffffff;
+    line-height: 1 !important;
+}
+
+body.host_version .dev-list .widget-title {
+    padding: 20px 0 10px;
+    margin: 0;
+    line-height: 1 !important;
+}
+
+body.host_version .big-tagline img {
+    margin-bottom: 20px;
+    max-width: 186px;
+}
+
+body.host_version .navbar-default .btn-light {
+    border-color: #efefef !important;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 0;
+}
+
+body.host_version .affix {
+    background-color: #ffffff !important;
+}
+
+body.host_version .icon_wrap,
+body.host_version .header_style_01 {
+    background: #ffffff !important;
+    position: relative;
+}
+
+body.host_version .effect-1:after {
+    box-shadow: 0 0 0 2px #F07D35;
+}
+
+body.host_version .first-section .effect-1:after,
+body.host_version .stat-wrap .effect-1:after {
+    box-shadow: 0 0 0 2px #fff;
+}
+
+body.host_version .header_style_01 .navbar-default .navbar-nav > li > a {
+    color: #1B4B73;
+}
+
+body.host_version .noover p {
+    color: rgba(255, 255, 255, 1) !important;
+}
+
+body.host_version .noover .grd1 {
+    border: 0 !important;
+}
+
+body.host_version .stat-wrap p {
+    color: #ffffff;
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0;
+    padding: 13px 0 0;
+}
+
+body.host_version .icon_wrap {
+    font-size: 62px;
+}
+
+body.host_version .first-section {
+    overflow: visible;
+    position: relative;
+    background-position: center;
+    background-size: cover;
+}
+
+body.host_version .first-section h2 {
+    padding-bottom: 15px;
+}
+
+body.host_version .first-section .lead {
+    padding-bottom: 35px;
+}
+
+body.host_version .stat-wrap .alignleft {
+    margin-right: 30px;
+}
+
+/* Additional Elevana-specific overrides */
+body.host_version .slide-btn.btn-light {
+    background-color: #1B4B73 !important;
+    color: #ffffff !important;
+    border: 2px solid #1B4B73 !important;
+}
+
+body.host_version .first-section .effect-1.slide-btn::after {
+    box-shadow: 0 0 0 2px #1B4B73;
+}
+
+/* Stats section background */
+body.host_version .section.cl {
+    background-color: #1B4B73;
+}
+
+/* Hover states for navigation */
+body.host_version .navbar-light .navbar-nav .nav-item:hover::after {
+    background-color: #F07D35;
+}
+
+body.host_version .navbar-light .navbar-nav .nav-item .nav-link::before,
+body.host_version .navbar-light .navbar-nav .nav-item .nav-link::after {
+    background-color: #F07D35;
+}
+
+/* Course and content highlights */
+body.host_version .course-br,
+body.host_version .course-meta-bot {
+    border-color: #1B4B73;
+}
+
+body.host_version .course-meta-bot ul li:hover {
+    color: #F07D35;
+}
+
+/* Widget styling */
+body.host_version .widget-categories .widget-title,
+body.host_version .widget-tags .widget-title {
+    border-right: 3px solid #F07D35;
+}
+
+/* Team member cards */
+body.host_version .our-team .social {
+    background: rgba(240, 125, 53, 0.9);
+}
+
+body.host_version .our-team:hover .team-content {
+    background: #F07D35;
+}
+
+/* Pricing tables */
+body.host_version .pricingTable .pricingTable-header,
+body.host_version .pricingTable.pink .pricingTable-header,
+body.host_version .pricingTable.orange .pricingTable-header {
+    background: #1B4B73;
+}
+
+body.host_version .pricingContent > i {
+    color: #F07D35;
+}
