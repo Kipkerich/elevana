@@ -17,6 +17,7 @@
                         <h5>{{ course.title }}</h5>
                         <p>KES {{ course.price }}</p>
                         <a href="{% url 'course_detail' course.slug %}" class="btn btn-primary">View</a>
+                        <a href="{% url 'course_detail' course.slug %}" class="btn btn-primary">Apply</a>
                     </div>
                 </div>
             </div>

@@ -5,5 +5,10 @@
     <img src="{{ course.image.url }}" alt="{{ course.title }}">
     <p><strong>Price:</strong> KES {{ course.price }}</p>
     <div>{{ course.description }}</div>
+    <div class="mt-4">
+        <a href="{% url 'contact' %}?course={{course.title}}" class="hover-btn-new orange" style="color: orange;">
+            <span>Apply for This Course</span>
+        </a>
+    </div>
 </div>
 {% endblock %}
