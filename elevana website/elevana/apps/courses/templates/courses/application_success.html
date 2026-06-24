@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Application Submitted — Elevana{% endblock %}
+
+{% block content %}
+<div style="min-height: 60vh; display: flex; align-items: center; background: #f8f9fa;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 text-center">
+                <div style="background:#fff; border-radius:16px; padding:60px 40px; box-shadow:0 4px 24px rgba(0,0,0,0.08);">
+                    <div style="width:80px; height:80px; background:#e8f5e9; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 24px;">
+                        <i class="fa fa-check" style="font-size:2.5rem; color:#2e7d32;"></i>
+                    </div>
+                    <h2 style="font-weight:700; color:#0f3460; margin-bottom:12px;">Application Submitted!</h2>
+                    <p style="color:#555; font-size:1.05rem; margin-bottom:8px;">
+                        Thank you for applying. We have received your application and will review it shortly.
+                    </p>
+                    <p style="color:#888; font-size:0.92rem; margin-bottom:32px;">
+                        A confirmation will be sent to your email address. If you don't hear from us within 5 business days, please contact us.
+                    </p>
+                    <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+                        <a href="{% url 'courses' %}" class="hover-btn-new orange"><span>Browse More Courses</span></a>
+                        <a href="{% url 'contact' %}" style="display:inline-block; padding:12px 28px; border:2px solid #0f3460; border-radius:6px; color:#0f3460; font-weight:600; text-decoration:none;">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

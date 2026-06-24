@@ -1,0 +1,328 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Apply for {{ course.title }} — Elevana{% endblock %}
+
+{% block extra_head %}
+<style>
+    .apply-hero {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        padding: 60px 0 40px;
+        color: #fff;
+    }
+    .apply-hero h1 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+    .apply-hero p  { opacity: 0.85; font-size: 1.05rem; }
+
+    .apply-wrap { background: #f8f9fa; padding: 50px 0 70px; }
+
+    .form-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        padding: 36px 40px;
+        margin-bottom: 28px;
+    }
+    .form-card h4 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #0f3460;
+        border-bottom: 2px solid #f0a500;
+        padding-bottom: 10px;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .form-card h4 .section-icon { font-size: 1.3rem; }
+
+    .form-label { font-weight: 600; font-size: 0.88rem; color: #444; margin-bottom: 4px; }
+    .form-control {
+        border-radius: 6px;
+        border: 1px solid #dde1e7;
+        font-size: 0.92rem;
+        padding: 10px 14px;
+        transition: border-color .2s, box-shadow .2s;
+    }
+    .form-control:focus {
+        border-color: #0f3460;
+        box-shadow: 0 0 0 3px rgba(15,52,96,0.12);
+        outline: none;
+    }
+    .optional-badge {
+        font-size: 0.72rem;
+        background: #e8f5e9;
+        color: #2e7d32;
+        border-radius: 20px;
+        padding: 2px 8px;
+        font-weight: 600;
+        margin-left: 6px;
+        vertical-align: middle;
+    }
+    .field-hint { font-size: 0.78rem; color: #888; margin-top: 3px; }
+
+    .submit-bar {
+        background: #fff;
+        border-top: 1px solid #eee;
+        padding: 24px 40px;
+        border-radius: 0 0 12px 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    .submit-bar .btn-apply {
+        background: #f0a500;
+        color: #fff;
+        font-weight: 700;
+        padding: 14px 40px;
+        border-radius: 6px;
+        border: none;
+        font-size: 1rem;
+        transition: background .2s, transform .15s;
+    }
+    .submit-bar .btn-apply:hover { background: #d4920a; transform: translateY(-1px); }
+
+    .course-badge {
+        background: #0f3460;
+        color: #fff;
+        border-radius: 8px;
+        padding: 10px 18px;
+        font-size: 0.9rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .errorlist { color: #d32f2f; font-size: 0.82rem; list-style: none; padding: 0; margin: 4px 0 0; }
+
+    @media (max-width: 576px) {
+        .form-card { padding: 22px 18px; }
+        .submit-bar { padding: 18px; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<div class="apply-hero">
+    <div class="container">
+        <p style="opacity:.7; font-size:.85rem; margin-bottom:6px;">
+            <a href="{% url 'courses' %}" style="color:#f0a500;">Courses</a> &rsaquo;
+            <a href="{% url 'course_detail' course.slug %}" style="color:#f0a500;">{{ course.title }}</a> &rsaquo; Apply
+        </p>
+        <h1>Course Application</h1>
+        <p>Complete the form below to apply for <strong>{{ course.title }}</strong>. All required fields are marked.</p>
+    </div>
+</div>
+
+<!-- Form -->
+<div class="apply-wrap">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+
+                <form method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    {{ form.course }} {# hidden course field #}
+
+                    <!-- ① Personal Details -->
+                    <div class="form-card">
+                        <h4><span class="section-icon">👤</span> Personal Details</h4>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label">First Name *</label>
+                                {{ form.first_name }}
+                                {% if form.first_name.errors %}<ul class="errorlist">{% for e in form.first_name.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Middle Name <span class="optional-badge">optional</span></label>
+                                {{ form.middle_name }}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Last Name *</label>
+                                {{ form.last_name }}
+                                {% if form.last_name.errors %}<ul class="errorlist">{% for e in form.last_name.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Date of Birth *</label>
+                                {{ form.date_of_birth }}
+                                {% if form.date_of_birth.errors %}<ul class="errorlist">{% for e in form.date_of_birth.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Gender *</label>
+                                {{ form.gender }}
+                                {% if form.gender.errors %}<ul class="errorlist">{% for e in form.gender.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Nationality / Citizenship *</label>
+                                {{ form.nationality }}
+                                {% if form.nationality.errors %}<ul class="errorlist">{% for e in form.nationality.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">National ID / Passport Number *</label>
+                                {{ form.id_passport_number }}
+                                <p class="field-hint">As shown on your official identification document.</p>
+                                {% if form.id_passport_number.errors %}<ul class="errorlist">{% for e in form.id_passport_number.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ② Contact Information -->
+                    <div class="form-card">
+                        <h4><span class="section-icon">📞</span> Contact Information</h4>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Email Address *</label>
+                                {{ form.email }}
+                                <p class="field-hint">Admission updates will be sent here.</p>
+                                {% if form.email.errors %}<ul class="errorlist">{% for e in form.email.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Phone Number *</label>
+                                {{ form.phone_number }}
+                                {% if form.phone_number.errors %}<ul class="errorlist">{% for e in form.phone_number.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Permanent Address *</label>
+                                {{ form.permanent_address }}
+                                {% if form.permanent_address.errors %}<ul class="errorlist">{% for e in form.permanent_address.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Mailing Address <span class="optional-badge">optional</span></label>
+                                {{ form.mailing_address }}
+                                <p class="field-hint">Leave blank if same as permanent address.</p>
+                            </div>
+
+                            <div class="col-12"><hr style="margin:8px 0;"></div>
+                            <div class="col-12"><p class="form-label" style="font-size:.95rem; color:#0f3460; margin-bottom:4px;">Emergency Contact</p></div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Full Name *</label>
+                                {{ form.emergency_contact_name }}
+                                {% if form.emergency_contact_name.errors %}<ul class="errorlist">{% for e in form.emergency_contact_name.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Relationship *</label>
+                                {{ form.emergency_contact_relationship }}
+                                {% if form.emergency_contact_relationship.errors %}<ul class="errorlist">{% for e in form.emergency_contact_relationship.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Phone Number *</label>
+                                {{ form.emergency_contact_phone }}
+                                {% if form.emergency_contact_phone.errors %}<ul class="errorlist">{% for e in form.emergency_contact_phone.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ③ Academic History -->
+                    <div class="form-card">
+                        <h4><span class="section-icon">🎓</span> Academic History</h4>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Previous Institutions *</label>
+                                {{ form.previous_institutions }}
+                                <p class="field-hint">List each school or university on a new line.</p>
+                                {% if form.previous_institutions.errors %}<ul class="errorlist">{% for e in form.previous_institutions.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Graduation Dates *</label>
+                                {{ form.graduation_dates }}
+                                <p class="field-hint">Month and year for each institution, one per line.</p>
+                                {% if form.graduation_dates.errors %}<ul class="errorlist">{% for e in form.graduation_dates.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Grades / GPA <span class="optional-badge">optional</span></label>
+                                {{ form.grades_gpa }}
+                                <p class="field-hint">e.g. 3.8 / 4.0 or A-</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Standardized Test Scores <span class="optional-badge">optional</span></label>
+                                {{ form.standardized_test_scores }}
+                                <p class="field-hint">SAT, ACT, TOEFL, IELTS, or local national exam scores.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ④ Supporting Documents -->
+                    <div class="form-card">
+                        <h4><span class="section-icon">📄</span> Supporting Documents</h4>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Academic Transcripts <span class="optional-badge">optional</span></label>
+                                {{ form.academic_transcript }}
+                                <p class="field-hint">Certified digital copies of report cards or certificates. (PDF/JPG)</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Identification Photo <span class="optional-badge">optional</span></label>
+                                {{ form.id_photo }}
+                                <p class="field-hint">Passport-sized headshot for your student profile. (JPG/PNG)</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Identification Scan <span class="optional-badge">optional</span></label>
+                                {{ form.id_scan }}
+                                <p class="field-hint">Scan of your national ID, birth certificate, or passport. (PDF/JPG)</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Letter of Recommendation <span class="optional-badge">optional</span></label>
+                                {{ form.recommendation_letter }}
+                                <p class="field-hint">From a previous teacher or employer. (PDF/DOC)</p>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Personal Statement / Essay *</label>
+                                {{ form.personal_statement }}
+                                <p class="field-hint">Explain your motivation and what you hope to gain from this course.</p>
+                                {% if form.personal_statement.errors %}<ul class="errorlist">{% for e in form.personal_statement.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ⑤ Background & Interests -->
+                    <div class="form-card">
+                        <h4><span class="section-icon">🎨</span> Background &amp; Interests <span class="optional-badge">all optional</span></h4>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Extracurricular Activities</label>
+                                {{ form.extracurricular_activities }}
+                                <p class="field-hint">Clubs, sports, volunteer work, etc.</p>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Accomplishments</label>
+                                {{ form.accomplishments }}
+                                <p class="field-hint">Awards, scholarships, or certifications.</p>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Special Accommodations</label>
+                                {{ form.special_accommodations }}
+                                <p class="field-hint">Dietary, medical, or accessibility needs.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit bar -->
+                    <div class="submit-bar">
+                        <div>
+                            <span class="course-badge">
+                                <i class="fa fa-graduation-cap"></i>
+                                Applying for: <strong>{{ course.title }}</strong>
+                            </span>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+                            <a href="{% url 'course_detail' course.slug %}" style="color:#666; font-size:.9rem;">
+                                &larr; Back to course
+                            </a>
+                            <button type="submit" class="btn-apply">
+                                <i class="fa fa-paper-plane" style="margin-right:8px;"></i>Submit Application
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</div>
+
+{% endblock %}
