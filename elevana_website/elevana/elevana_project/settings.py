@@ -141,3 +141,11 @@ EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 EMAIL_HOST_USER = 'info@elevanatraininginstitute.com'
 EMAIL_HOST_PASSWORD = 'info@elevana'
+
+# -------------------------------------------------------------------
+# Paystack
+# Replace these with your actual keys from https://dashboard.paystack.com
+# In production, load these from environment variables, never hardcode.
+# -------------------------------------------------------------------
+PAYSTACK_PUBLIC_KEY = 'pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+PAYSTACK_SECRET_KEY = 'sk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'

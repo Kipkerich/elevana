@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+import uuid
 
 
 class Department(models.Model):
@@ -37,10 +38,16 @@ class CourseApplication(models.Model):
         ('prefer_not', 'Prefer Not to Say'),
     ]
     STATUS_CHOICES = [
-        ('pending', 'Pending'),
+        ('draft', 'Draft'),        # form saved, payment not yet made
+        ('pending', 'Pending'),    # paid, awaiting review
         ('reviewed', 'Reviewed'),
         ('accepted', 'Accepted'),
         ('rejected', 'Rejected'),
+    ]
+    PAYMENT_STATUS_CHOICES = [
+        ('unpaid', 'Unpaid'),
+        ('paid', 'Paid'),
+        ('failed', 'Failed'),
     ]
 
     # --- Course ---
@@ -82,8 +89,12 @@ class CourseApplication(models.Model):
     accomplishments = models.TextField(blank=True, help_text='Awards, scholarships, or special certifications')
     special_accommodations = models.TextField(blank=True, help_text='Dietary, medical, or physical accessibility needs')
 
+    # --- Payment ---
+    payment_reference = models.CharField(max_length=100, unique=True, blank=True)
+    payment_status = models.CharField(max_length=20, choices=PAYMENT_STATUS_CHOICES, default='unpaid')
+
     # --- Meta ---
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
     submitted_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -91,3 +102,9 @@ class CourseApplication(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} — {self.course.title}"
+
+    def save(self, *args, **kwargs):
+        # Auto-generate a unique payment reference if not set
+        if not self.payment_reference:
+            self.payment_reference = f"ELEV-{uuid.uuid4().hex[:12].upper()}"
+        super().save(*args, **kwargs)

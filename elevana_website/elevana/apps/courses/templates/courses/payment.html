@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Complete Payment — {{ course.title }} — Elevana{% endblock %}
+
+{% block extra_head %}
+<style>
+    .pay-hero {
+        background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+        padding: 50px 0 36px;
+        color: #fff;
+    }
+    .pay-hero h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 6px; }
+
+    .pay-wrap { background: #f8f9fa; min-height: 60vh; padding: 50px 0 80px; }
+
+    .pay-card {
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 4px 28px rgba(0,0,0,0.09);
+        overflow: hidden;
+    }
+
+    .pay-card__header {
+        background: #0f3460;
+        padding: 28px 32px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+    .pay-card__header .lock-icon {
+        width: 46px; height: 46px;
+        background: rgba(255,255,255,0.12);
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.3rem;
+        flex-shrink: 0;
+    }
+    .pay-card__header h3 { margin: 0; font-size: 1.15rem; font-weight: 700; }
+    .pay-card__header p  { margin: 4px 0 0; opacity: .75; font-size: .88rem; }
+
+    .pay-card__body { padding: 32px; }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid #f0f0f0;
+        font-size: .92rem;
+    }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-row .label { color: #777; }
+    .summary-row .value { font-weight: 600; color: #222; }
+    .summary-row.total .label { font-size: 1rem; font-weight: 700; color: #0f3460; }
+    .summary-row.total .value { font-size: 1.4rem; font-weight: 800; color: #f0a500; }
+
+    .btn-pay {
+        display: block;
+        width: 100%;
+        background: #f0a500;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 16px;
+        font-size: 1.05rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background .2s, transform .15s;
+        margin-top: 24px;
+    }
+    .btn-pay:hover { background: #d4920a; transform: translateY(-1px); }
+    .btn-pay:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+
+    .secure-note {
+        text-align: center;
+        font-size: .78rem;
+        color: #aaa;
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .badge-ref {
+        display: inline-block;
+        background: #f0f4ff;
+        color: #0f3460;
+        border-radius: 6px;
+        padding: 4px 10px;
+        font-size: .78rem;
+        font-family: monospace;
+        letter-spacing: .5px;
+    }
+
+    .alert-failed {
+        background: #fff3f3;
+        border: 1px solid #f5c6cb;
+        border-radius: 8px;
+        padding: 14px 18px;
+        color: #721c24;
+        font-size: .9rem;
+        margin-bottom: 20px;
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    @media (max-width: 576px) {
+        .pay-card__body { padding: 20px 18px; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="pay-hero">
+    <div class="container">
+        <p style="opacity:.65; font-size:.82rem; margin-bottom:6px;">
+            <a href="{% url 'courses' %}" style="color:#f0a500;">Courses</a> &rsaquo;
+            <a href="{% url 'course_detail' course.slug %}" style="color:#f0a500;">{{ course.title }}</a> &rsaquo;
+            Payment
+        </p>
+        <h1>Complete Your Payment</h1>
+        <p style="opacity:.8;">One last step to finalise your application.</p>
+    </div>
+</div>
+
+<div class="pay-wrap">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+
+                {% if messages %}
+                {% for msg in messages %}
+                <div class="alert-failed">
+                    <i class="fa fa-exclamation-triangle" style="margin-top:2px;"></i>
+                    <span>{{ msg }}</span>
+                </div>
+                {% endfor %}
+                {% endif %}
+
+                <div class="pay-card">
+                    <div class="pay-card__header">
+                        <div class="lock-icon"><i class="fa fa-lock"></i></div>
+                        <div>
+                            <h3>Secure Payment</h3>
+                            <p>Powered by Paystack &mdash; your card details are never stored.</p>
+                        </div>
+                    </div>
+
+                    <div class="pay-card__body">
+                        <!-- Order summary -->
+                        <div class="summary-row">
+                            <span class="label">Applicant</span>
+                            <span class="value">{{ application.first_name }} {{ application.last_name }}</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="label">Email</span>
+                            <span class="value">{{ application.email }}</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="label">Course</span>
+                            <span class="value">{{ course.title }}</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="label">Department</span>
+                            <span class="value">{{ course.department.name }}</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="label">Reference</span>
+                            <span class="value"><span class="badge-ref">{{ application.payment_reference }}</span></span>
+                        </div>
+                        <div class="summary-row total">
+                            <span class="label">Amount Due</span>
+                            <span class="value">KES {{ course.price }}</span>
+                        </div>
+
+                        <!-- Pay button — triggers Paystack inline popup -->
+                        <button
+                            id="pay-btn"
+                            class="btn-pay"
+                            onclick="payWithPaystack()"
+                        >
+                            <i class="fa fa-credit-card" style="margin-right:8px;"></i>
+                            Pay KES {{ course.price }} Now
+                        </button>
+
+                        <p class="secure-note">
+                            <i class="fa fa-shield"></i>
+                            256-bit SSL encrypted &bull; Visa &bull; Mastercard &bull; M-Pesa &bull; Bank transfer
+                        </p>
+
+                        <div style="text-align:center; margin-top:20px;">
+                            <a href="{% url 'course_detail' course.slug %}"
+                               style="color:#aaa; font-size:.82rem; text-decoration:none;">
+                                &larr; Cancel and go back
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Paystack Inline JS -->
+<script src="https://js.paystack.co/v2/inline.js"></script>
+<script>
+    function payWithPaystack() {
+        var btn = document.getElementById('pay-btn');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa fa-spinner fa-spin" style="margin-right:8px;"></i>Opening payment...';
+
+        var handler = PaystackPop.setup({
+            key: '{{ paystack_public_key }}',
+            email: '{{ application.email }}',
+            amount: {{ amount_kobo }},           // in kobo/cents
+            currency: 'KES',
+            ref: '{{ application.payment_reference }}',
+            metadata: {
+                applicant_name: '{{ application.first_name }} {{ application.last_name }}',
+                course: '{{ course.title }}',
+                application_id: {{ application.id }},
+            },
+            callback: function(response) {
+                // Payment succeeded in popup — redirect to server-side verification
+                window.location.href = '{% url "payment_callback" application.payment_reference %}?trxref=' + response.reference + '&reference=' + response.reference;
+            },
+            onClose: function() {
+                // User closed the popup without paying
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa fa-credit-card" style="margin-right:8px;"></i>Pay KES {{ course.price }} Now';
+            }
+        });
+
+        handler.openIframe();
+    }
+</script>
+
+{% endblock %}
