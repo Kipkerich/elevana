@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ course.title }} — Elevana{% endblock %}
+
 {% block content %}
 {% load math_filters %}
 
@@ -57,4 +61,5 @@
 
     <a href="#" class="btn btn-primary mt-4 btn-lg">Apply Now</a>
 </div>
+
 {% endblock %}
