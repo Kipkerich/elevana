@@ -16,9 +16,9 @@ class CourseAdmin(admin.ModelAdmin):
 
 @admin.register(CourseApplication)
 class CourseApplicationAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'email', 'course', 'status', 'submitted_at')
-    list_filter = ('status', 'course', 'submitted_at')
-    search_fields = ('first_name', 'last_name', 'email', 'id_passport_number')
-    readonly_fields = ('submitted_at',)
+    list_display = ('email', 'id_number', 'course', 'status', 'payment_status', 'submitted_at')
+    list_filter = ('status', 'payment_status', 'course', 'submitted_at')
+    search_fields = ('email', 'id_number', 'transaction_code', 'payment_reference')
+    readonly_fields = ('submitted_at', 'payment_reference')
     list_editable = ('status',)
     ordering = ('-submitted_at',)

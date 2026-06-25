@@ -1,7 +1,5 @@
-# Migration for CourseApplication model
-
-from django.db import migrations, models
 import django.db.models.deletion
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
@@ -14,39 +12,90 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CourseApplication',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(max_length=100)),
-                ('middle_name', models.CharField(blank=True, max_length=100)),
-                ('last_name', models.CharField(max_length=100)),
-                ('date_of_birth', models.DateField()),
-                ('gender', models.CharField(choices=[('male', 'Male'), ('female', 'Female'), ('non_binary', 'Non-Binary'), ('other', 'Other'), ('prefer_not', 'Prefer Not to Say')], max_length=20)),
-                ('nationality', models.CharField(max_length=100)),
-                ('id_passport_number', models.CharField(max_length=100)),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True,
+                                           serialize=False, verbose_name='ID')),
+                ('course', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    related_name='applications',
+                    to='courses.course',
+                )),
+                # Personal
                 ('email', models.EmailField(max_length=254)),
-                ('phone_number', models.CharField(max_length=20)),
-                ('permanent_address', models.TextField()),
-                ('mailing_address', models.TextField(blank=True, help_text='Leave blank if same as permanent address')),
-                ('emergency_contact_name', models.CharField(max_length=200)),
-                ('emergency_contact_relationship', models.CharField(max_length=100)),
-                ('emergency_contact_phone', models.CharField(max_length=20)),
-                ('previous_institutions', models.TextField(help_text='List schools/universities attended, one per line')),
-                ('graduation_dates', models.TextField(help_text='Month and year of graduation for each institution')),
-                ('grades_gpa', models.CharField(blank=True, help_text='Cumulative GPA or grade', max_length=100)),
-                ('standardized_test_scores', models.CharField(blank=True, help_text='SAT, ACT, TOEFL, IELTS, etc.', max_length=200)),
-                ('academic_transcript', models.FileField(blank=True, null=True, upload_to='applications/transcripts/')),
-                ('id_photo', models.ImageField(blank=True, help_text='Passport-sized headshot', null=True, upload_to='applications/photos/')),
-                ('id_scan', models.FileField(blank=True, help_text='Scan of national ID, birth certificate, or passport', null=True, upload_to='applications/id_scans/')),
-                ('personal_statement', models.TextField(help_text='Explain your motivation for applying to this course')),
-                ('recommendation_letter', models.FileField(blank=True, null=True, upload_to='applications/recommendations/')),
-                ('extracurricular_activities', models.TextField(blank=True, help_text='Clubs, sports, volunteer work, etc.')),
-                ('accomplishments', models.TextField(blank=True, help_text='Awards, scholarships, or special certifications')),
-                ('special_accommodations', models.TextField(blank=True, help_text='Dietary, medical, or physical accessibility needs')),
-                ('status', models.CharField(choices=[('pending', 'Pending'), ('reviewed', 'Reviewed'), ('accepted', 'Accepted'), ('rejected', 'Rejected')], default='pending', max_length=20)),
+                ('id_number', models.CharField(max_length=100, verbose_name='ID Number')),
+                ('date_of_birth', models.DateField()),
+                ('gender', models.CharField(
+                    max_length=20,
+                    choices=[('female', 'Female'), ('male', 'Male'),
+                             ('prefer_not', "Don't want to mention")],
+                )),
+                ('is_person_with_disability', models.CharField(
+                    max_length=3,
+                    choices=[('yes', 'Yes'), ('no', 'No')],
+                    verbose_name='Person with Disability?',
+                )),
+                ('country', models.CharField(max_length=100)),
+                ('religion', models.CharField(
+                    max_length=50,
+                    choices=[
+                        ('christianity', 'Christianity'), ('islam', 'Islam'),
+                        ('hinduism', 'Hinduism'), ('buddhism', 'Buddhism'),
+                        ('other', 'Other'), ('prefer_not', 'Prefer Not to Say'),
+                    ],
+                )),
+                # Contact
+                ('first_mobile_number', models.CharField(max_length=20)),
+                ('second_mobile_number', models.CharField(max_length=20, blank=True)),
+                # Education
+                ('highest_education_level', models.CharField(
+                    max_length=50,
+                    choices=[
+                        ('primary', 'Primary'),
+                        ('secondary', 'Secondary / High School'),
+                        ('certificate', 'Certificate'),
+                        ('diploma', 'Diploma'),
+                        ('bachelors', "Bachelor's Degree"),
+                        ('masters', "Master's Degree"),
+                        ('phd', 'PhD / Doctorate'),
+                        ('other', 'Other'),
+                    ],
+                )),
+                ('year_of_completion', models.CharField(max_length=4)),
+                ('mean_grade', models.CharField(
+                    max_length=20, verbose_name='Mean Grade / Final Grade')),
+                # Next of kin
+                ('next_of_kin_name', models.CharField(max_length=200)),
+                ('next_of_kin_mobile', models.CharField(
+                    max_length=50, verbose_name='Next of Kin Mobile Numbers')),
+                # Location
+                ('home_county', models.CharField(max_length=100)),
+                ('country_outside_kenya', models.CharField(max_length=100, blank=True)),
+                ('current_residence_town', models.CharField(
+                    max_length=100, verbose_name='Current Residence / Town')),
+                # Payment
+                ('payment_reference', models.CharField(max_length=100, unique=True, blank=True)),
+                ('payment_status', models.CharField(
+                    max_length=20,
+                    choices=[('unpaid', 'Unpaid'), ('paid', 'Paid'), ('failed', 'Failed')],
+                    default='unpaid',
+                )),
+                # Consent
+                ('data_consent', models.CharField(
+                    max_length=3,
+                    choices=[('yes', 'Yes'), ('no', 'No')],
+                    verbose_name='Data Protection Consent',
+                )),
+                # Status / meta
+                ('status', models.CharField(
+                    max_length=20,
+                    choices=[
+                        ('draft', 'Draft'), ('pending', 'Pending'),
+                        ('reviewed', 'Reviewed'), ('accepted', 'Accepted'),
+                        ('rejected', 'Rejected'),
+                    ],
+                    default='draft',
+                )),
                 ('submitted_at', models.DateTimeField(auto_now_add=True)),
-                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='applications', to='courses.course')),
             ],
-            options={
-                'ordering': ['-submitted_at'],
-            },
+            options={'ordering': ['-submitted_at']},
         ),
     ]

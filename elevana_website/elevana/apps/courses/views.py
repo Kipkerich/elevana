@@ -1,20 +1,19 @@
-import json
-import hmac
 import hashlib
-import requests
+import hmac
+import json
 
+import requests
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
-from .models import Course, Department, CourseApplication
-from .forms import CourseForm, CourseApplicationForm
-
+from .forms import CourseApplicationForm, CourseForm
+from .models import Course, CourseApplication, Department
 
 PAYSTACK_API = "https://api.paystack.co"
 
@@ -24,14 +23,13 @@ def staff_only(user):
 
 
 # ---------------------------------------------------------------------------
-# Course management (staff only)
+# Staff: course management
 # ---------------------------------------------------------------------------
 
 @login_required
 @user_passes_test(staff_only)
 def manage_course(request, slug=None):
     course = get_object_or_404(Course, slug=slug) if slug else None
-
     if request.method == 'POST':
         form = CourseForm(request.POST, request.FILES, instance=course)
         if form.is_valid():
@@ -39,7 +37,6 @@ def manage_course(request, slug=None):
             return redirect('courses')
     else:
         form = CourseForm(instance=course)
-
     return render(request, 'courses/manage_course.html', {'form': form})
 
 
@@ -52,7 +49,7 @@ def delete_course(request, slug):
 
 
 # ---------------------------------------------------------------------------
-# Public course views
+# Public: course browsing
 # ---------------------------------------------------------------------------
 
 def course_list(request):
@@ -75,14 +72,18 @@ def department_detail(request, slug):
 
 
 # ---------------------------------------------------------------------------
-# Application & payment flow
+# Application + Paystack payment flow
+#
+#  Step 1 — apply_course    : user fills form → saved as draft → redirect to payment_page
+#  Step 2 — payment_page    : shows order summary + triggers Paystack popup
+#  Step 3 — payment_callback: Paystack redirects here → we verify server-side → success
+#  Step 4 — application_success : confirmation page
+#
+#  Bonus  — paystack_webhook: backup HMAC-signed event from Paystack servers
 # ---------------------------------------------------------------------------
 
 def apply_course(request, slug):
-    """
-    Step 1 — Display and process the application form.
-    On valid POST: save as draft, redirect to payment page.
-    """
+    """Step 1 — application form."""
     course = get_object_or_404(Course, slug=slug)
 
     if request.method == 'POST':
@@ -92,8 +93,6 @@ def apply_course(request, slug):
             application.status = 'draft'
             application.payment_status = 'unpaid'
             application.save()
-            # Store the application id in session so payment page can retrieve it
-            request.session['pending_application_id'] = application.id
             return redirect('payment_page', ref=application.payment_reference)
     else:
         form = CourseApplicationForm(course=course)
@@ -102,45 +101,46 @@ def apply_course(request, slug):
 
 
 def payment_page(request, ref):
-    """
-    Step 2 — Show payment summary and trigger Paystack popup.
-    """
+    """Step 2 — payment summary + Paystack inline popup."""
     application = get_object_or_404(CourseApplication, payment_reference=ref)
 
-    # Guard: if already paid, skip to success
+    # Already paid? Skip straight to success.
     if application.payment_status == 'paid':
         return redirect('application_success')
 
-    # Amount in kobo (Paystack uses smallest currency unit)
-    # Course price is in KES — Paystack Kenya uses KES, amount in cents (x100)
+    # Paystack expects the smallest currency unit.
+    # KES on Paystack = kobo-equivalent (multiply by 100).
     amount_kobo = int(application.course.price * 100)
+
+    callback_url = request.build_absolute_uri(
+        reverse('payment_callback', args=[ref])
+    )
 
     context = {
         'application': application,
         'course': application.course,
         'amount_kobo': amount_kobo,
         'paystack_public_key': settings.PAYSTACK_PUBLIC_KEY,
-        'callback_url': request.build_absolute_uri(
-            reverse('payment_callback', args=[ref])
-        ),
+        'callback_url': callback_url,
     }
     return render(request, 'courses/payment.html', context)
 
 
 def payment_callback(request, ref):
     """
-    Step 3 — Paystack redirects back here after the popup closes.
-    We verify the transaction server-side with the secret key.
+    Step 3 — Paystack redirects here after popup closes successfully.
+    We verify the transaction with the Paystack API before marking it paid.
     """
     application = get_object_or_404(CourseApplication, payment_reference=ref)
 
+    # Paystack sends ?trxref=xxx&reference=xxx in the redirect
     trxref = request.GET.get('trxref') or request.GET.get('reference') or ref
 
-    # Verify with Paystack API
     headers = {
         'Authorization': f'Bearer {settings.PAYSTACK_SECRET_KEY}',
         'Content-Type': 'application/json',
     }
+
     try:
         response = requests.get(
             f"{PAYSTACK_API}/transaction/verify/{trxref}",
@@ -149,44 +149,47 @@ def payment_callback(request, ref):
         )
         data = response.json()
     except requests.RequestException:
-        messages.error(request, 'Could not verify payment. Please contact support.')
+        messages.error(request, 'Network error while verifying payment. Please contact support.')
         return redirect('payment_page', ref=ref)
 
     if data.get('status') and data['data']['status'] == 'success':
-        # Confirm amount matches to prevent price tampering
-        paid_amount = data['data']['amount']  # in kobo
+        paid_amount = data['data']['amount']          # in kobo
         expected_amount = int(application.course.price * 100)
 
         if paid_amount >= expected_amount:
             application.payment_status = 'paid'
-            application.status = 'pending'
+            application.status = 'pending'            # now awaiting staff review
             application.save()
-            # Clear session
-            request.session.pop('pending_application_id', None)
             return redirect('application_success')
         else:
             messages.warning(
                 request,
-                'Payment amount mismatch. Please contact support with reference: '
-                f'{ref}'
+                f'Payment amount mismatch. Please contact support quoting reference: {ref}'
             )
             return redirect('payment_page', ref=ref)
     else:
+        # Payment failed or was abandoned
         application.payment_status = 'failed'
         application.save()
-        messages.error(
-            request,
-            'Payment was not completed. You can try again below.'
-        )
+        messages.error(request, 'Payment was not completed. Please try again.')
         return redirect('payment_page', ref=ref)
 
+
+def application_success(request):
+    """Step 4 — confirmation page."""
+    return render(request, 'courses/application_success.html')
+
+
+# ---------------------------------------------------------------------------
+# Paystack webhook — backup server-to-server confirmation
+# ---------------------------------------------------------------------------
 
 @csrf_exempt
 @require_POST
 def paystack_webhook(request):
     """
-    Paystack webhook — secondary/backup confirmation.
-    Paystack signs the payload with HMAC-SHA512 using your secret key.
+    Paystack POSTs signed events here.
+    Used as a backup — catches cases where the callback redirect was interrupted.
     """
     paystack_signature = request.headers.get('X-Paystack-Signature', '')
     secret = settings.PAYSTACK_SECRET_KEY.encode('utf-8')
@@ -214,7 +217,3 @@ def paystack_webhook(request):
             application.save()
 
     return HttpResponse(status=200)
-
-
-def application_success(request):
-    return render(request, 'courses/application_success.html')

@@ -31,15 +31,13 @@ class Course(models.Model):
 
 class CourseApplication(models.Model):
     GENDER_CHOICES = [
-        ('male', 'Male'),
         ('female', 'Female'),
-        ('non_binary', 'Non-Binary'),
-        ('other', 'Other'),
-        ('prefer_not', 'Prefer Not to Say'),
+        ('male', 'Male'),
+        ('prefer_not', "Don't want to mention"),
     ]
     STATUS_CHOICES = [
-        ('draft', 'Draft'),        # form saved, payment not yet made
-        ('pending', 'Pending'),    # paid, awaiting review
+        ('draft', 'Draft'),
+        ('pending', 'Pending'),
         ('reviewed', 'Reviewed'),
         ('accepted', 'Accepted'),
         ('rejected', 'Rejected'),
@@ -49,49 +47,81 @@ class CourseApplication(models.Model):
         ('paid', 'Paid'),
         ('failed', 'Failed'),
     ]
+    EDUCATION_LEVEL_CHOICES = [
+        ('primary', 'Primary'),
+        ('secondary', 'Secondary / High School'),
+        ('certificate', 'Certificate'),
+        ('diploma', 'Diploma'),
+        ('bachelors', "Bachelor's Degree"),
+        ('masters', "Master's Degree"),
+        ('phd', 'PhD / Doctorate'),
+        ('other', 'Other'),
+    ]
+    RELIGION_CHOICES = [
+        ('christianity', 'Christianity'),
+        ('islam', 'Islam'),
+        ('hinduism', 'Hinduism'),
+        ('buddhism', 'Buddhism'),
+        ('other', 'Other'),
+        ('prefer_not', 'Prefer Not to Say'),
+    ]
+    DISABILITY_CHOICES = [
+        ('yes', 'Yes'),
+        ('no', 'No'),
+    ]
+    DATA_CONSENT_CHOICES = [
+        ('yes', 'Yes'),
+        ('no', 'No'),
+    ]
 
     # --- Course ---
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='applications')
 
     # --- Personal Details ---
-    first_name = models.CharField(max_length=100)
-    middle_name = models.CharField(max_length=100, blank=True)
-    last_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    id_number = models.CharField(max_length=100, verbose_name='ID Number')
     date_of_birth = models.DateField()
     gender = models.CharField(max_length=20, choices=GENDER_CHOICES)
-    nationality = models.CharField(max_length=100)
-    id_passport_number = models.CharField(max_length=100)
+    is_person_with_disability = models.CharField(
+        max_length=3, choices=DISABILITY_CHOICES,
+        verbose_name='Person with Disability?'
+    )
+    country = models.CharField(max_length=100)
+    religion = models.CharField(max_length=50, choices=RELIGION_CHOICES)
 
-    # --- Contact Information ---
-    email = models.EmailField()
-    phone_number = models.CharField(max_length=20)
-    permanent_address = models.TextField()
-    mailing_address = models.TextField(blank=True, help_text='Leave blank if same as permanent address')
-    emergency_contact_name = models.CharField(max_length=200)
-    emergency_contact_relationship = models.CharField(max_length=100)
-    emergency_contact_phone = models.CharField(max_length=20)
+    # --- Contact ---
+    first_mobile_number = models.CharField(max_length=20)
+    second_mobile_number = models.CharField(max_length=20, blank=True)
 
-    # --- Academic History ---
-    previous_institutions = models.TextField(help_text='List schools/universities attended, one per line')
-    graduation_dates = models.TextField(help_text='Month and year of graduation for each institution')
-    grades_gpa = models.CharField(max_length=100, blank=True, help_text='Cumulative GPA or grade')
-    standardized_test_scores = models.CharField(max_length=200, blank=True, help_text='SAT, ACT, TOEFL, IELTS, etc.')
+    # --- Education ---
+    highest_education_level = models.CharField(max_length=50, choices=EDUCATION_LEVEL_CHOICES)
+    year_of_completion = models.CharField(max_length=4, help_text='e.g. 2020')
+    mean_grade = models.CharField(max_length=20, verbose_name='Mean Grade / Final Grade',
+                                  help_text='e.g. B+ or 3.8/4.0')
 
-    # --- Supporting Documents ---
-    academic_transcript = models.FileField(upload_to='applications/transcripts/', blank=True, null=True)
-    id_photo = models.ImageField(upload_to='applications/photos/', blank=True, null=True, help_text='Passport-sized headshot')
-    id_scan = models.FileField(upload_to='applications/id_scans/', blank=True, null=True, help_text='Scan of national ID, birth certificate, or passport')
-    personal_statement = models.TextField(help_text='Explain your motivation for applying to this course')
-    recommendation_letter = models.FileField(upload_to='applications/recommendations/', blank=True, null=True)
+    # --- Next of Kin ---
+    next_of_kin_name = models.CharField(max_length=200)
+    next_of_kin_mobile = models.CharField(max_length=50, verbose_name='Next of Kin Mobile Numbers')
 
-    # --- Background & Interests (Optional) ---
-    extracurricular_activities = models.TextField(blank=True, help_text='Clubs, sports, volunteer work, etc.')
-    accomplishments = models.TextField(blank=True, help_text='Awards, scholarships, or special certifications')
-    special_accommodations = models.TextField(blank=True, help_text='Dietary, medical, or physical accessibility needs')
+    # --- Location ---
+    home_county = models.CharField(max_length=100)
+    country_outside_kenya = models.CharField(max_length=100, blank=True,
+                                             help_text='Fill only if you reside outside Kenya')
+    current_residence_town = models.CharField(max_length=100, verbose_name='Current Residence / Town')
 
     # --- Payment ---
     payment_reference = models.CharField(max_length=100, unique=True, blank=True)
     payment_status = models.CharField(max_length=20, choices=PAYMENT_STATUS_CHOICES, default='unpaid')
+
+    # --- Consent ---
+    data_consent = models.CharField(
+        max_length=3, choices=DATA_CONSENT_CHOICES,
+        verbose_name='Data Protection Consent',
+        help_text=(
+            'By filling this form, you are consenting that the data being given shall be used '
+            'solely for purposes of training and deployment for attachment engagement.'
+        )
+    )
 
     # --- Meta ---
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
@@ -101,10 +131,9 @@ class CourseApplication(models.Model):
         ordering = ['-submitted_at']
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name} — {self.course.title}"
+        return f"{self.email} — {self.course.title}"
 
     def save(self, *args, **kwargs):
-        # Auto-generate a unique payment reference if not set
         if not self.payment_reference:
             self.payment_reference = f"ELEV-{uuid.uuid4().hex[:12].upper()}"
         super().save(*args, **kwargs)

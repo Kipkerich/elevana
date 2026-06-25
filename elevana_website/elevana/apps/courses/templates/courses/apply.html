@@ -5,322 +5,374 @@
 
 {% block extra_head %}
 <style>
+    /* ── Hero ─────────────────────────────────────────────────── */
     .apply-hero {
         background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-        padding: 60px 0 40px;
+        padding: 56px 0 36px;
         color: #fff;
     }
-    .apply-hero h1 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
-    .apply-hero p  { opacity: 0.85; font-size: 1.05rem; }
+    .apply-hero h1 { font-size: 1.85rem; font-weight: 700; margin-bottom: 6px; }
+    .apply-hero p  { opacity: .85; font-size: .98rem; }
 
-    .apply-wrap { background: #f8f9fa; padding: 50px 0 70px; }
+    /* ── Page background ──────────────────────────────────────── */
+    .apply-wrap { background: #f4f6fb; padding: 44px 0 70px; }
 
+    /* ── White card per section ───────────────────────────────── */
     .form-card {
         background: #fff;
-        border-radius: 12px;
-        box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-        padding: 36px 40px;
-        margin-bottom: 28px;
+        border-radius: 10px;
+        box-shadow: 0 2px 16px rgba(0,0,0,.06);
+        padding: 28px 32px;
+        margin-bottom: 20px;
     }
     .form-card h4 {
-        font-size: 1.1rem;
+        font-size: .95rem;
         font-weight: 700;
         color: #0f3460;
         border-bottom: 2px solid #f0a500;
-        padding-bottom: 10px;
-        margin-bottom: 24px;
+        padding-bottom: 9px;
+        margin-bottom: 20px;
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
+        text-transform: uppercase;
+        letter-spacing: .4px;
     }
-    .form-card h4 .section-icon { font-size: 1.3rem; }
 
-    .form-label { font-weight: 600; font-size: 0.88rem; color: #444; margin-bottom: 4px; }
-    .form-control {
-        border-radius: 6px;
-        border: 1px solid #dde1e7;
-        font-size: 0.92rem;
-        padding: 10px 14px;
-        transition: border-color .2s, box-shadow .2s;
+    /* ── Field chrome ─────────────────────────────────────────── */
+    .form-label {
+        font-weight: 600;
+        font-size: .83rem;
+        color: #333;
+        margin-bottom: 5px;
+        display: block;
     }
-    .form-control:focus {
+    .req { color: #d32f2f; margin-left: 2px; }
+
+    .form-control, .form-select {
+        width: 100%;
+        border-radius: 6px;
+        border: 1px solid #d8dde6;
+        font-size: .9rem;
+        padding: 9px 13px;
+        background: #fff;
+        transition: border-color .18s, box-shadow .18s;
+    }
+    .form-control:focus, .form-select:focus {
         border-color: #0f3460;
-        box-shadow: 0 0 0 3px rgba(15,52,96,0.12);
+        box-shadow: 0 0 0 3px rgba(15,52,96,.10);
         outline: none;
     }
-    .optional-badge {
-        font-size: 0.72rem;
-        background: #e8f5e9;
-        color: #2e7d32;
-        border-radius: 20px;
-        padding: 2px 8px;
-        font-weight: 600;
-        margin-left: 6px;
-        vertical-align: middle;
-    }
-    .field-hint { font-size: 0.78rem; color: #888; margin-top: 3px; }
 
+    /* ── Radio buttons ────────────────────────────────────────── */
+    .radio-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 20px;
+        margin-top: 4px;
+    }
+    .radio-option {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: .9rem;
+        color: #333;
+        cursor: pointer;
+        padding: 7px 14px;
+        border: 1px solid #d8dde6;
+        border-radius: 6px;
+        transition: border-color .15s, background .15s;
+        user-select: none;
+    }
+    .radio-option input[type=radio] {
+        accent-color: #0f3460;
+        width: 15px; height: 15px;
+        flex-shrink: 0;
+    }
+    .radio-option:has(input:checked) {
+        border-color: #0f3460;
+        background: #f0f4ff;
+    }
+
+    /* ── Hint text ────────────────────────────────────────────── */
+    .field-hint { font-size: .75rem; color: #aaa; margin-top: 3px; }
+
+    /* ── Error list ───────────────────────────────────────────── */
+    .errorlist {
+        color: #c62828; font-size: .79rem;
+        list-style: none; padding: 0; margin: 4px 0 0;
+    }
+
+    /* ── Course info banner (replaces the Google Form dropdown) ─ */
+    .course-banner {
+        background: #0f3460;
+        color: #fff;
+        border-radius: 10px;
+        padding: 18px 24px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+    .course-banner .cb-icon {
+        width: 42px; height: 42px; background: rgba(255,255,255,.12);
+        border-radius: 50%; display: flex; align-items: center;
+        justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+    }
+    .course-banner .cb-title { font-size: .78rem; opacity: .75; margin-bottom: 2px; }
+    .course-banner .cb-name  { font-size: 1.05rem; font-weight: 700; }
+    .course-banner .cb-dept  { font-size: .82rem; opacity: .8; }
+
+    /* ── Submit bar ───────────────────────────────────────────── */
     .submit-bar {
         background: #fff;
         border-top: 1px solid #eee;
-        padding: 24px 40px;
-        border-radius: 0 0 12px 12px;
+        padding: 20px 32px;
+        border-radius: 0 0 10px 10px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 12px;
     }
-    .submit-bar .btn-apply {
-        background: #f0a500;
-        color: #fff;
-        font-weight: 700;
-        padding: 14px 40px;
-        border-radius: 6px;
-        border: none;
-        font-size: 1rem;
+    .btn-apply {
+        background: #f0a500; color: #fff;
+        font-weight: 700; padding: 13px 36px;
+        border-radius: 6px; border: none;
+        font-size: .96rem; cursor: pointer;
         transition: background .2s, transform .15s;
-        cursor: pointer;
     }
-    .submit-bar .btn-apply:hover { background: #d4920a; transform: translateY(-1px); }
-
-    .course-badge {
-        background: #0f3460;
-        color: #fff;
-        border-radius: 8px;
-        padding: 10px 18px;
-        font-size: 0.9rem;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .errorlist { color: #d32f2f; font-size: 0.82rem; list-style: none; padding: 0; margin: 4px 0 0; }
+    .btn-apply:hover { background: #d4920a; transform: translateY(-1px); }
 
     @media (max-width: 576px) {
-        .form-card { padding: 22px 18px; }
-        .submit-bar { padding: 18px; }
+        .form-card  { padding: 20px 16px; }
+        .submit-bar { padding: 16px; flex-direction: column; align-items: stretch; }
+        .btn-apply  { text-align: center; }
     }
 </style>
 {% endblock %}
 
 {% block content %}
 
-<!-- Hero -->
+<!-- ── Hero ─────────────────────────────────────────────────────── -->
 <div class="apply-hero">
     <div class="container">
-        <p style="opacity:.7; font-size:.85rem; margin-bottom:6px;">
+        <p style="opacity:.6; font-size:.8rem; margin-bottom:6px;">
             <a href="{% url 'courses' %}" style="color:#f0a500;">Courses</a> &rsaquo;
-            <a href="{% url 'course_detail' course.slug %}" style="color:#f0a500;">{{ course.title }}</a> &rsaquo; Apply
+            <a href="{% url 'course_detail' course.slug %}" style="color:#f0a500;">{{ course.title }}</a>
+            &rsaquo; Apply
         </p>
-        <h1 style="color: #dde1e7;">Course Application</h1>
-        <p>Complete the form below to apply for <strong>{{ course.title }}</strong>. All required fields are marked.</p>
+        <h1>Course Application Form</h1>
+        <p>Fill in all required fields, then proceed to payment to complete your enrolment.</p>
     </div>
 </div>
 
-<!-- Form -->
+<!-- ── Form body ─────────────────────────────────────────────────── -->
 <div class="apply-wrap">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-9">
+            <div class="col-lg-8">
+
+                <!-- Course banner (replaces the "German Online Course" dropdown) -->
+                <div class="course-banner">
+                    <div class="cb-icon"><i class="fa fa-graduation-cap"></i></div>
+                    <div>
+                        <div class="cb-title">Applying for</div>
+                        <div class="cb-name">{{ course.title }}</div>
+                        <div class="cb-dept">{{ course.department.name }}</div>
+                    </div>
+                </div>
 
                 <form method="post" enctype="multipart/form-data" novalidate>
                     {% csrf_token %}
-                    {{ form.course }}
+                    {{ form.course }}  {# hidden course field #}
 
-                    <!-- ① Personal Details -->
+                    <!-- ① Personal Details ──────────────────────── -->
                     <div class="form-card">
-                        <h4><span class="section-icon">👤</span> Personal Details</h4>
+                        <h4>👤 Personal Details</h4>
                         <div class="row g-3">
-                            <div class="col-md-4">
-                                <label class="form-label">First Name *</label>
-                                {{ form.first_name }}
-                                {% if form.first_name.errors %}<ul class="errorlist">{% for e in form.first_name.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Middle Name <span class="optional-badge">optional</span></label>
-                                {{ form.middle_name }}
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Last Name *</label>
-                                {{ form.last_name }}
-                                {% if form.last_name.errors %}<ul class="errorlist">{% for e in form.last_name.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Date of Birth *</label>
-                                {{ form.date_of_birth }}
-                                {% if form.date_of_birth.errors %}<ul class="errorlist">{% for e in form.date_of_birth.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Gender *</label>
-                                {{ form.gender }}
-                                {% if form.gender.errors %}<ul class="errorlist">{% for e in form.gender.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Nationality / Citizenship *</label>
-                                {{ form.nationality }}
-                                {% if form.nationality.errors %}<ul class="errorlist">{% for e in form.nationality.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">National ID / Passport Number *</label>
-                                {{ form.id_passport_number }}
-                                <p class="field-hint">As shown on your official identification document.</p>
-                                {% if form.id_passport_number.errors %}<ul class="errorlist">{% for e in form.id_passport_number.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- ② Contact Information -->
-                    <div class="form-card">
-                        <h4><span class="section-icon">📞</span> Contact Information</h4>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label">Email Address *</label>
+                            <div class="col-12">
+                                <label class="form-label">Email Address <span class="req">*</span></label>
                                 {{ form.email }}
-                                <p class="field-hint">Admission updates will be sent here.</p>
                                 {% if form.email.errors %}<ul class="errorlist">{% for e in form.email.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
                             </div>
+
                             <div class="col-md-6">
-                                <label class="form-label">Phone Number *</label>
-                                {{ form.phone_number }}
-                                {% if form.phone_number.errors %}<ul class="errorlist">{% for e in form.phone_number.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Permanent Address *</label>
-                                {{ form.permanent_address }}
-                                {% if form.permanent_address.errors %}<ul class="errorlist">{% for e in form.permanent_address.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Mailing Address <span class="optional-badge">optional</span></label>
-                                {{ form.mailing_address }}
-                                <p class="field-hint">Leave blank if same as permanent address.</p>
+                                <label class="form-label">ID Number <span class="req">*</span></label>
+                                {{ form.id_number }}
+                                {% if form.id_number.errors %}<ul class="errorlist">{% for e in form.id_number.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
                             </div>
 
-                            <div class="col-12"><hr style="margin:8px 0;"></div>
-                            <div class="col-12"><p class="form-label" style="font-size:.95rem; color:#0f3460; margin-bottom:4px;">Emergency Contact</p></div>
+                            <div class="col-md-6">
+                                <label class="form-label">Date of Birth <span class="req">*</span></label>
+                                {{ form.date_of_birth }}
+                                <p class="field-hint">Date, Month and Year of Birth</p>
+                                {% if form.date_of_birth.errors %}<ul class="errorlist">{% for e in form.date_of_birth.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                            </div>
 
-                            <div class="col-md-4">
-                                <label class="form-label">Full Name *</label>
-                                {{ form.emergency_contact_name }}
-                                {% if form.emergency_contact_name.errors %}<ul class="errorlist">{% for e in form.emergency_contact_name.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                            <div class="col-md-6">
+                                <label class="form-label">Gender <span class="req">*</span></label>
+                                <div class="radio-row">
+                                    {% for widget in form.gender %}
+                                        <label class="radio-option">
+                                            {{ widget.tag }} {{ widget.choice_label }}
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% if form.gender.errors %}<ul class="errorlist">{% for e in form.gender.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
                             </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Relationship *</label>
-                                {{ form.emergency_contact_relationship }}
-                                {% if form.emergency_contact_relationship.errors %}<ul class="errorlist">{% for e in form.emergency_contact_relationship.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+
+                            <div class="col-md-6">
+                                <label class="form-label">Person with Disability? <span class="req">*</span></label>
+                                <div class="radio-row">
+                                    {% for widget in form.is_person_with_disability %}
+                                        <label class="radio-option">
+                                            {{ widget.tag }} {{ widget.choice_label }}
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                {% if form.is_person_with_disability.errors %}<ul class="errorlist">{% for e in form.is_person_with_disability.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
                             </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Phone Number *</label>
-                                {{ form.emergency_contact_phone }}
-                                {% if form.emergency_contact_phone.errors %}<ul class="errorlist">{% for e in form.emergency_contact_phone.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+
+                            <div class="col-md-6">
+                                <label class="form-label">Country <span class="req">*</span></label>
+                                {{ form.country }}
+                                {% if form.country.errors %}<ul class="errorlist">{% for e in form.country.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
                             </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Religion <span class="req">*</span></label>
+                                {{ form.religion }}
+                                {% if form.religion.errors %}<ul class="errorlist">{% for e in form.religion.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                            </div>
+
                         </div>
                     </div>
 
-                    <!-- ③ Academic History -->
+                    <!-- ② Contact ───────────────────────────────── -->
                     <div class="form-card">
-                        <h4><span class="section-icon">🎓</span> Academic History</h4>
+                        <h4>📞 Contact Information</h4>
                         <div class="row g-3">
+
                             <div class="col-md-6">
-                                <label class="form-label">Previous Institutions *</label>
-                                {{ form.previous_institutions }}
-                                <p class="field-hint">List each school or university on a new line.</p>
-                                {% if form.previous_institutions.errors %}<ul class="errorlist">{% for e in form.previous_institutions.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                                <label class="form-label">First Mobile Number <span class="req">*</span></label>
+                                {{ form.first_mobile_number }}
+                                {% if form.first_mobile_number.errors %}<ul class="errorlist">{% for e in form.first_mobile_number.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
                             </div>
+
                             <div class="col-md-6">
-                                <label class="form-label">Graduation Dates *</label>
-                                {{ form.graduation_dates }}
-                                <p class="field-hint">Month and year for each institution, one per line.</p>
-                                {% if form.graduation_dates.errors %}<ul class="errorlist">{% for e in form.graduation_dates.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                                <label class="form-label">Second Mobile Number</label>
+                                {{ form.second_mobile_number }}
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Grades / GPA <span class="optional-badge">optional</span></label>
-                                {{ form.grades_gpa }}
-                                <p class="field-hint">e.g. 3.8 / 4.0 or A-</p>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Standardized Test Scores <span class="optional-badge">optional</span></label>
-                                {{ form.standardized_test_scores }}
-                                <p class="field-hint">SAT, ACT, TOEFL, IELTS, or local national exam scores.</p>
-                            </div>
+
                         </div>
                     </div>
 
-                    <!-- ④ Supporting Documents -->
+                    <!-- ③ Education ─────────────────────────────── -->
                     <div class="form-card">
-                        <h4><span class="section-icon">📄</span> Supporting Documents</h4>
+                        <h4>🎓 Education Background</h4>
                         <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label">Academic Transcripts <span class="optional-badge">optional</span></label>
-                                {{ form.academic_transcript }}
-                                <p class="field-hint">Certified digital copies of report cards or certificates. (PDF/JPG)</p>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Identification Photo <span class="optional-badge">optional</span></label>
-                                {{ form.id_photo }}
-                                <p class="field-hint">Passport-sized headshot for your student profile. (JPG/PNG)</p>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Identification Scan <span class="optional-badge">optional</span></label>
-                                {{ form.id_scan }}
-                                <p class="field-hint">Scan of your national ID, birth certificate, or passport. (PDF/JPG)</p>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Letter of Recommendation <span class="optional-badge">optional</span></label>
-                                {{ form.recommendation_letter }}
-                                <p class="field-hint">From a previous teacher or employer. (PDF/DOC)</p>
-                            </div>
+
                             <div class="col-12">
-                                <label class="form-label">Personal Statement / Essay *</label>
-                                {{ form.personal_statement }}
-                                <p class="field-hint">Explain your motivation and what you hope to gain from this course.</p>
-                                {% if form.personal_statement.errors %}<ul class="errorlist">{% for e in form.personal_statement.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                                <label class="form-label">Highest Education Level <span class="req">*</span></label>
+                                {{ form.highest_education_level }}
+                                {% if form.highest_education_level.errors %}<ul class="errorlist">{% for e in form.highest_education_level.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
                             </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Year of Completion <span class="req">*</span></label>
+                                {{ form.year_of_completion }}
+                                {% if form.year_of_completion.errors %}<ul class="errorlist">{% for e in form.year_of_completion.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Mean Grade / Final Grade <span class="req">*</span></label>
+                                {{ form.mean_grade }}
+                                <p class="field-hint">e.g. B+ or 3.8 / 4.0</p>
+                                {% if form.mean_grade.errors %}<ul class="errorlist">{% for e in form.mean_grade.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                            </div>
+
                         </div>
                     </div>
 
-                    <!-- ⑤ Background & Interests -->
+                    <!-- ④ Next of Kin ────────────────────────────── -->
                     <div class="form-card">
-                        <h4><span class="section-icon">🎨</span> Background &amp; Interests <span class="optional-badge">all optional</span></h4>
+                        <h4>🆘 Next of Kin</h4>
                         <div class="row g-3">
-                            <div class="col-md-4">
-                                <label class="form-label">Extracurricular Activities</label>
-                                {{ form.extracurricular_activities }}
-                                <p class="field-hint">Clubs, sports, volunteer work, etc.</p>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Next of Kin Name <span class="req">*</span></label>
+                                {{ form.next_of_kin_name }}
+                                {% if form.next_of_kin_name.errors %}<ul class="errorlist">{% for e in form.next_of_kin_name.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
                             </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Accomplishments</label>
-                                {{ form.accomplishments }}
-                                <p class="field-hint">Awards, scholarships, or certifications.</p>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Next of Kin Mobile Numbers <span class="req">*</span></label>
+                                {{ form.next_of_kin_mobile }}
+                                <p class="field-hint">Separate multiple numbers with a comma.</p>
+                                {% if form.next_of_kin_mobile.errors %}<ul class="errorlist">{% for e in form.next_of_kin_mobile.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
                             </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Special Accommodations</label>
-                                {{ form.special_accommodations }}
-                                <p class="field-hint">Dietary, medical, or accessibility needs.</p>
-                            </div>
+
                         </div>
                     </div>
 
-                    <!-- Submit bar -->
+                    <!-- ⑤ Location ──────────────────────────────── -->
+                    <div class="form-card">
+                        <h4>📍 Location</h4>
+                        <div class="row g-3">
+
+                            <div class="col-md-4">
+                                <label class="form-label">Home County <span class="req">*</span></label>
+                                {{ form.home_county }}
+                                {% if form.home_county.errors %}<ul class="errorlist">{% for e in form.home_county.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Country outside Kenya</label>
+                                {{ form.country_outside_kenya }}
+                                <p class="field-hint">This is a required question if you reside outside Kenya.</p>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Current Residence / Town <span class="req">*</span></label>
+                                {{ form.current_residence_town }}
+                                {% if form.current_residence_town.errors %}<ul class="errorlist">{% for e in form.current_residence_town.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- ⑦ Data Protection Consent ───────────────── -->
+                    <div class="form-card">
+                        <h4>✅ Data Protection</h4>
+                        <p style="font-size:.88rem; color:#444; line-height:1.75; margin-bottom:16px;">
+                            By filling this form, you are consenting that the data being given shall be used
+                            solely for purposes of training and deployment for attachment engagement.
+                            <span class="req">*</span>
+                        </p>
+                        <div class="radio-row">
+                            {% for widget in form.data_consent %}
+                                <label class="radio-option">
+                                    {{ widget.tag }} {{ widget.choice_label }}
+                                </label>
+                            {% endfor %}
+                        </div>
+                        {% if form.data_consent.errors %}<ul class="errorlist" style="margin-top:8px;">{% for e in form.data_consent.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+                    </div>
+
+                    <!-- Submit bar ──────────────────────────────── -->
                     <div class="submit-bar">
-                        <div>
-                            <span class="course-badge">
-                                <i class="fa fa-graduation-cap"></i>
-                                Applying for: <strong>{{ course.title }}</strong>
-                            </span>
-                        </div>
-                        <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
-                            <a href="{% url 'course_detail' course.slug %}" style="color:#666; font-size:.9rem;">
-                                &larr; Back to course
-                            </a>
-                            <button type="submit" class="btn-apply">
-                                <i class="fa fa-paper-plane" style="margin-right:8px;"></i>Submit Application
-                            </button>
-                        </div>
+                        <a href="{% url 'course_detail' course.slug %}" style="color:#aaa; font-size:.85rem; text-decoration:none;">
+                            &larr; Back to course
+                        </a>
+                        <button type="submit" class="btn-apply">
+                            <i class="fa fa-arrow-right" style="margin-right:7px;"></i>
+                            Submit &amp; Proceed to Payment
+                        </button>
                     </div>
 
                 </form>
-
             </div>
         </div>
     </div>
