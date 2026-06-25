@@ -1,10 +1,4 @@
-This document provides a comprehensive overview of the Elevana project, covering the architecture, configuration, and setup steps we have designed.
 
-You can copy the content below directly into a file named **`README.md`** in your project root.
-
----
-
-```markdown
 # Elevana Professional Training Institute Platform
 
 Elevana is a professional training and learning management platform designed to empower professionals across Africa. This platform is built using **Django**, a high-level Python web framework, following a modular and scalable architecture.
@@ -41,7 +35,7 @@ elevana_project/
 
 ```bash
 # Clone the repository
-git clone <your-repository-url>
+git clone https://github.com/Kipkerich/elevana.git
 cd elevana_project
 
 # Setup Virtual Environment
@@ -101,14 +95,11 @@ The project uses a two-tier routing system:
 
 ## 🤝 Contributing
 
-1. Create a branch for your feature: `git checkout -b feature/your-feature`
+1. Create a branch for your feature: `git checkout -b dynamic-versiob/your-feature`
 2. Commit changes: `git commit -m 'Add feature'`
-3. Push to branch: `git push origin feature/your-feature`
+3. Push to branch: `git push origin dynamic-version/your-feature`
 
 ## 📧 Contact
 
 For technical inquiries or project documentation support, please contact the development team.
 
-```
-
-```
