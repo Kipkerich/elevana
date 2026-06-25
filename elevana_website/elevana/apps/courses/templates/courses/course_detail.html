@@ -1,9 +1,60 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
-    <h1>{{ course.title }}</h1>
-    <img src="{{ course.image.url }}" alt="{{ course.title }}">
-    <p><strong>Price:</strong> KES {{ course.price }}</p>
-    <div>{{ course.description }}</div>
+{% load math_filters %}
+
+{% load static %}
+
+
+<style>
+    .course-img-standard { width: 100%; height: 400px; object-fit: cover; }
+    .price-card { background-color: #f8f9fa; border-left: 5px solid #007bff; }
+</style>
+
+<div class="container mt-5">
+    {% if course.image %}
+        <img src="{{ course.image.url }}" class="course-img-standard" alt="{{ course.title }}">
+    {% endif %}
+
+    <div class="card mt-4 p-4 shadow-sm">
+        <h2>{{ course.title }}</h2>
+        <p>{{ course.description }}</p>
+    </div>
+
+            <div class="card price-card mt-3 p-3">
+            <div class="row align-items-center">
+                <div class="col">
+                    <strong>Price: </strong>
+                    <span id="price-display" 
+                        data-kes="{{ course.base_price_kes }}" 
+                        data-usd="{{ course.base_price_kes|div:130 }}">
+                        KSh {{ course.base_price_kes }}
+                    </span>
+                </div>
+                <div class="col">
+                    <select id="currency-select" onchange="convertPrice()">
+                        <option value="kes">KES (KSh)</option>
+                        <option value="usd">USD ($)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <script>
+        function convertPrice() {
+            const select = document.getElementById('currency-select');
+            const display = document.getElementById('price-display');
+            const val = select.value;
+            
+            if (val === 'usd') {
+                display.innerText = '$ ' + display.getAttribute('data-usd');
+            } else {
+                display.innerText = 'KSh ' + display.getAttribute('data-kes');
+            }
+        }
+        </script>
+        
+    </div>
+
+    <a href="#" class="btn btn-primary mt-4 btn-lg">Apply Now</a>
 </div>
 {% endblock %}

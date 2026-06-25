@@ -10,17 +10,14 @@
         
         <div class="row">
             {% for course in dept.courses.all %}
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.title }}">
-                    <div class="card-body">
-                        <h5>{{ course.title }}</h5>
-                        <p>KES {{ course.price }}</p>
-                        <a href="{% url 'course_detail' course.slug %}" class="btn btn-primary">View</a>
-                    </div>
+            <div class="card h-100">
+                <img src="{{ course.image.url }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ course.title }}</h5>
+                    <a href="{% url 'course_detail' course.slug %}" class="btn btn-outline-primary">View Course</a>
                 </div>
             </div>
-            {% empty %}
+                        {% empty %}
                 <p>No courses currently available in this department.</p>
             {% endfor %}
         </div>
