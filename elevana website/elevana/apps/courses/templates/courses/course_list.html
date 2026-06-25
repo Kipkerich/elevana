@@ -1,37 +1,29 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block content %}
-<div class="all-title-box">
-    <div class="container text-center"><h1>Our Courses</h1></div>
-</div>
-
-<div class="section wb">
-    <div class="container">
-        <!-- Filter Bar -->
-        <div class="row mb-4">
-            <div class="col-md-12">
-                <a href="?category=all" class="btn btn-outline-primary">All</a>
-                {% for cat in categories %}
-                    <a href="?category={{ cat.slug }}" class="btn btn-outline-primary">{{ cat.name }}</a>
-                {% endfor %}
-            </div>
-        </div>
-
+<div class="container">
+    <h1>Our Departments & Courses</h1>
+    
+    {% for dept in departments %}
+        <h2 class="mt-5">{{ dept.name }}</h2>
+        <p>{{ dept.description }}</p>
+        
         <div class="row">
-            {% for course in courses %}
-            <div class="col-lg-4 col-md-6 col-12">
-                <div class="course-item">
-                    <img src="{{ course.image.url }}" alt="{{ course.title }}" class="img-fluid">
-                    <div class="course-br">
-                        <h4><a href="{% url 'course_detail' course.slug %}">{{ course.title }}</a></h4>
-                        <p>{{ course.description|truncatewords:20 }}</p>
-                        <p><strong>Price:</strong> KES {{ course.price }}</p>
+            {% for course in dept.courses.all %}
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.title }}">
+                    <div class="card-body">
+                        <h5>{{ course.title }}</h5>
+                        <p>KES {{ course.price }}</p>
+                        <a href="{% url 'course_detail' course.slug %}" class="btn btn-primary">View</a>
                     </div>
                 </div>
             </div>
+            {% empty %}
+                <p>No courses currently available in this department.</p>
             {% endfor %}
         </div>
-    </div>
+    {% endfor %}
 </div>
 {% endblock %}

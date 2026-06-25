@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h1>{{ course.title }}</h1>
+    <img src="{{ course.image.url }}" alt="{{ course.title }}">
+    <p><strong>Price:</strong> KES {{ course.price }}</p>
+    <div>{{ course.description }}</div>
+</div>
+{% endblock %}
