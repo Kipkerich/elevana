@@ -6,6 +6,7 @@ import requests
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -22,9 +23,67 @@ def staff_only(user):
     return user.is_staff
 
 
+def send_application_status_email(application):
+    subject = f"Your Elevana application has been {application.get_status_display().lower()}"
+    if application.status == 'accepted':
+        message = (
+            f"Dear applicant,\n\n"
+            f"Congratulations. Your application for {application.course.title} has been approved.\n"
+            "Our admissions team will contact you with the next steps.\n\n"
+            "Kind regards,\n"
+            "Elevana Professional Training Institute"
+        )
+    else:
+        message = (
+            f"Dear applicant,\n\n"
+            f"Thank you for applying for {application.course.title}. "
+            "After review, your application was not approved at this time.\n\n"
+            "Kind regards,\n"
+            "Elevana Professional Training Institute"
+        )
+
+    send_mail(
+        subject,
+        message,
+        settings.DEFAULT_FROM_EMAIL if hasattr(settings, 'DEFAULT_FROM_EMAIL') else settings.EMAIL_HOST_USER,
+        [application.email],
+        fail_silently=False,
+    )
+
+
 # ---------------------------------------------------------------------------
 # Staff: course management
 # ---------------------------------------------------------------------------
+
+@login_required
+@user_passes_test(staff_only)
+def admin_course_dashboard(request):
+    if request.method == 'POST':
+        form = CourseForm(request.POST, request.FILES)
+        if form.is_valid():
+            course = form.save()
+            messages.success(request, f'{course.title} was created successfully.')
+            return redirect('admin_course_dashboard')
+    else:
+        form = CourseForm()
+
+    courses = Course.objects.select_related('department').prefetch_related('applications').order_by('department__name', 'title')
+    applications = CourseApplication.objects.select_related('course', 'course__department').all()
+    stats = {
+        'courses': courses.count(),
+        'applications': applications.count(),
+        'pending': applications.filter(status='pending').count(),
+        'accepted': applications.filter(status='accepted').count(),
+        'rejected': applications.filter(status='rejected').count(),
+    }
+
+    return render(request, 'courses/admin_dashboard.html', {
+        'form': form,
+        'courses': courses,
+        'applications': applications,
+        'stats': stats,
+    })
+
 
 @login_required
 @user_passes_test(staff_only)
@@ -33,19 +92,58 @@ def manage_course(request, slug=None):
     if request.method == 'POST':
         form = CourseForm(request.POST, request.FILES, instance=course)
         if form.is_valid():
-            form.save()
-            return redirect('courses')
+            course = form.save()
+            messages.success(request, f'{course.title} was saved successfully.')
+            return redirect('admin_course_dashboard')
     else:
         form = CourseForm(instance=course)
     return render(request, 'courses/manage_course.html', {'form': form})
 
 
+@login_required
+@user_passes_test(staff_only)
 def delete_course(request, slug):
     course = get_object_or_404(Course, slug=slug)
     if request.method == 'POST':
         course.delete()
-        return redirect('courses')
+        messages.success(request, f'{course.title} was deleted successfully.')
+        return redirect('admin_course_dashboard')
     return render(request, 'courses/confirm_delete.html', {'course': course})
+
+
+@login_required
+@user_passes_test(staff_only)
+@require_POST
+def update_application_status(request, pk, decision):
+    application = get_object_or_404(
+        CourseApplication.objects.select_related('course'),
+        pk=pk,
+    )
+    status_by_decision = {
+        'approve': 'accepted',
+        'reject': 'rejected',
+    }
+    new_status = status_by_decision.get(decision)
+    if not new_status:
+        messages.error(request, 'Invalid application decision.')
+        return redirect('admin_course_dashboard')
+
+    application.status = new_status
+    application.save(update_fields=['status'])
+
+    try:
+        send_application_status_email(application)
+        messages.success(
+            request,
+            f'{application.email} was {application.get_status_display().lower()} and notified by email.',
+        )
+    except Exception as exc:
+        messages.warning(
+            request,
+            f'{application.email} was {application.get_status_display().lower()}, but the email could not be sent: {exc}',
+        )
+
+    return redirect('admin_course_dashboard')
 
 
 # ---------------------------------------------------------------------------

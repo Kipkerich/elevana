@@ -3,8 +3,11 @@ from . import views
 
 urlpatterns = [
     path('', views.course_list, name='courses'),
+    path('dashboard/', views.admin_course_dashboard, name='admin_course_dashboard'),
     path('manage/', views.manage_course, name='add_course'),
     path('manage/<slug:slug>/', views.manage_course, name='edit_course'),
+    path('manage/<slug:slug>/delete/', views.delete_course, name='delete_course'),
+    path('dashboard/applications/<int:pk>/<str:decision>/', views.update_application_status, name='update_application_status'),
 
     # Application & payment
     path('apply/success/', views.application_success, name='application_success'),

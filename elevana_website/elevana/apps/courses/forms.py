@@ -29,9 +29,27 @@ YEAR_CHOICES = [('', '— Select Year —')] + [
 
 
 class CourseForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            css_class = 'form-select' if isinstance(field.widget, forms.Select) else 'form-control'
+            field.widget.attrs['class'] = css_class
+
     class Meta:
         model = Course
-        fields = ['title', 'department', 'description', 'price', 'image']
+        fields = [
+            'title',
+            'department',
+            'description',
+            'price',
+            'pricing_type',
+            'base_price_kes',
+            'currency',
+            'image',
+        ]
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 4}),
+        }
 
 
 class CourseApplicationForm(forms.ModelForm):
