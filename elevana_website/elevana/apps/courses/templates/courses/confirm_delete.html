@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Course{% endblock %}
+
+{% block content %}
+<div class="section wb">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7">
+                <h1>Delete Course</h1>
+                <p class="text-muted">This will permanently remove the course from the public course list.</p>
+                <p>Are you sure you want to delete <strong>{{ course.title }}</strong>?</p>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Delete Course</button>
+                    <a href="{% url 'admin_course_dashboard' %}" class="btn btn-outline-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

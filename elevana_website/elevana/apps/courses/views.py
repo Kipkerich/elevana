@@ -13,7 +13,7 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
-from .forms import CourseApplicationForm, CourseForm
+from .forms import CourseApplicationForm, CourseForm, DepartmentForm
 from .models import Course, CourseApplication, Department
 
 PAYSTACK_API = "https://api.paystack.co"
@@ -55,22 +55,33 @@ def send_application_status_email(application):
 # Staff: course management
 # ---------------------------------------------------------------------------
 
-@login_required
-@user_passes_test(staff_only)
+@login_required(login_url='admin_login')
+@user_passes_test(staff_only, login_url='admin_login')
 def admin_course_dashboard(request):
+    course_form = CourseForm()
+    department_form = DepartmentForm()
+
     if request.method == 'POST':
-        form = CourseForm(request.POST, request.FILES)
-        if form.is_valid():
-            course = form.save()
-            messages.success(request, f'{course.title} was created successfully.')
-            return redirect('admin_course_dashboard')
-    else:
-        form = CourseForm()
+        form_action = request.POST.get('form_action')
+        if form_action == 'create_department':
+            department_form = DepartmentForm(request.POST)
+            if department_form.is_valid():
+                department = department_form.save()
+                messages.success(request, f'{department.name} department was created successfully.')
+                return redirect('admin_course_dashboard')
+        else:
+            course_form = CourseForm(request.POST, request.FILES)
+            if course_form.is_valid():
+                course = course_form.save()
+                messages.success(request, f'{course.title} was created successfully.')
+                return redirect('admin_course_dashboard')
 
     courses = Course.objects.select_related('department').prefetch_related('applications').order_by('department__name', 'title')
+    departments = Department.objects.prefetch_related('courses').order_by('name')
     applications = CourseApplication.objects.select_related('course', 'course__department').all()
     stats = {
         'courses': courses.count(),
+        'departments': departments.count(),
         'applications': applications.count(),
         'pending': applications.filter(status='pending').count(),
         'accepted': applications.filter(status='accepted').count(),
@@ -78,15 +89,17 @@ def admin_course_dashboard(request):
     }
 
     return render(request, 'courses/admin_dashboard.html', {
-        'form': form,
+        'course_form': course_form,
+        'department_form': department_form,
         'courses': courses,
+        'departments': departments,
         'applications': applications,
         'stats': stats,
     })
 
 
-@login_required
-@user_passes_test(staff_only)
+@login_required(login_url='admin_login')
+@user_passes_test(staff_only, login_url='admin_login')
 def manage_course(request, slug=None):
     course = get_object_or_404(Course, slug=slug) if slug else None
     if request.method == 'POST':
@@ -100,8 +113,8 @@ def manage_course(request, slug=None):
     return render(request, 'courses/manage_course.html', {'form': form})
 
 
-@login_required
-@user_passes_test(staff_only)
+@login_required(login_url='admin_login')
+@user_passes_test(staff_only, login_url='admin_login')
 def delete_course(request, slug):
     course = get_object_or_404(Course, slug=slug)
     if request.method == 'POST':
@@ -111,8 +124,8 @@ def delete_course(request, slug):
     return render(request, 'courses/confirm_delete.html', {'course': course})
 
 
-@login_required
-@user_passes_test(staff_only)
+@login_required(login_url='admin_login')
+@user_passes_test(staff_only, login_url='admin_login')
 @require_POST
 def update_application_status(request, pk, decision):
     application = get_object_or_404(

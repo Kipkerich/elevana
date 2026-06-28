@@ -1,5 +1,7 @@
 from django import forms
-from .models import Course, CourseApplication
+from django.utils.text import slugify
+
+from .models import Course, CourseApplication, Department
 
 # Kenyan counties list
 KENYA_COUNTIES = [
@@ -26,6 +28,34 @@ KENYA_COUNTIES = [
 YEAR_CHOICES = [('', '— Select Year —')] + [
     (str(y), str(y)) for y in range(2026, 1979, -1)
 ]
+
+
+class DepartmentForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+
+    def save(self, commit=True):
+        department = super().save(commit=False)
+        if not department.slug:
+            base_slug = slugify(department.name)
+            slug = base_slug
+            counter = 2
+            while Department.objects.filter(slug=slug).exclude(pk=department.pk).exists():
+                slug = f'{base_slug}-{counter}'
+                counter += 1
+            department.slug = slug
+        if commit:
+            department.save()
+        return department
+
+    class Meta:
+        model = Department
+        fields = ['name', 'description']
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 4}),
+        }
 
 
 class CourseForm(forms.ModelForm):

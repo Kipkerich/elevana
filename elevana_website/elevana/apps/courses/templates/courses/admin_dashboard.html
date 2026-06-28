@@ -2,164 +2,498 @@
 
 {% block title %}Course Admin Dashboard{% endblock %}
 
+{% block extra_head %}
+<style>
+    .admin-shell {
+        background: #f5f7fb;
+        min-height: calc(100vh - 120px);
+        padding: 28px 0;
+    }
+
+    .admin-layout {
+        display: grid;
+        grid-template-columns: 260px minmax(0, 1fr);
+        gap: 24px;
+        align-items: start;
+    }
+
+    .admin-sidebar {
+        background: #102033;
+        color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        position: sticky;
+        top: 18px;
+    }
+
+    .admin-sidebar h2 {
+        color: #fff;
+        font-size: 20px;
+        margin-bottom: 4px;
+    }
+
+    .admin-sidebar p {
+        color: #b8c4d6;
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+
+    .admin-nav {
+        display: grid;
+        gap: 8px;
+    }
+
+    .admin-nav a {
+        color: #dbe5f1;
+        border-radius: 6px;
+        padding: 11px 12px;
+        text-decoration: none;
+        transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .admin-nav a:hover,
+    .admin-nav a:focus {
+        background: #1f8f6b;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .admin-content {
+        display: grid;
+        gap: 24px;
+        min-width: 0;
+    }
+
+    .admin-hero,
+    .admin-panel,
+    .stat-card {
+        background: #fff;
+        border: 1px solid #e6ebf2;
+        border-radius: 8px;
+        box-shadow: 0 12px 28px rgba(16, 32, 51, 0.06);
+    }
+
+    .admin-hero {
+        padding: 24px;
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: center;
+    }
+
+    .admin-hero h1 {
+        font-size: 30px;
+        margin-bottom: 6px;
+    }
+
+    .admin-panel {
+        padding: 22px;
+        scroll-margin-top: 18px;
+    }
+
+    .admin-panel-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: flex-start;
+        margin-bottom: 18px;
+    }
+
+    .admin-panel-header h2 {
+        font-size: 22px;
+        margin-bottom: 4px;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(140px, 1fr));
+        gap: 14px;
+    }
+
+    .stat-card {
+        padding: 18px;
+        border-left: 4px solid #1f8f6b;
+    }
+
+    .stat-card:nth-child(2) {
+        border-left-color: #315d96;
+    }
+
+    .stat-card:nth-child(3) {
+        border-left-color: #d89b20;
+    }
+
+    .stat-card:nth-child(4) {
+        border-left-color: #2d9b66;
+    }
+
+    .stat-card:nth-child(5) {
+        border-left-color: #bd4f4f;
+    }
+
+    .stat-card span {
+        color: #6f7b89;
+        display: block;
+        font-size: 13px;
+        margin-bottom: 8px;
+    }
+
+    .stat-card strong {
+        color: #102033;
+        display: block;
+        font-size: 28px;
+        line-height: 1;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .form-grid .full-width {
+        grid-column: 1 / -1;
+    }
+
+    .table thead th {
+        background: #f0f4f8;
+        border-bottom: 0;
+        color: #415268;
+        font-size: 13px;
+        text-transform: uppercase;
+    }
+
+    .status-pill {
+        border-radius: 999px;
+        display: inline-block;
+        font-size: 12px;
+        padding: 5px 10px;
+        background: #eef2f7;
+        color: #415268;
+    }
+
+    .status-pill.pending {
+        background: #fff4d9;
+        color: #8a630d;
+    }
+
+    .status-pill.accepted {
+        background: #dff4e9;
+        color: #1f714d;
+    }
+
+    .status-pill.rejected {
+        background: #f8dddd;
+        color: #9a3333;
+    }
+
+    .action-row {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+    }
+
+    @media (max-width: 991px) {
+        .admin-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .admin-sidebar {
+            position: static;
+        }
+
+        .admin-nav {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .admin-nav a {
+            flex: 0 0 auto;
+            white-space: nowrap;
+        }
+
+        .stats-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 767px) {
+        .admin-shell {
+            padding: 16px 0;
+        }
+
+        .admin-hero,
+        .admin-panel-header {
+            display: block;
+        }
+
+        .admin-hero .btn,
+        .admin-panel-header .btn {
+            margin-top: 12px;
+        }
+
+        .form-grid,
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .admin-panel {
+            padding: 16px;
+        }
+
+        .action-row {
+            justify-content: flex-start;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block content %}
-<div class="section wb">
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
-            <div>
-                <h1 class="mb-1">Course Admin Dashboard</h1>
-                <p class="text-muted mb-0">Create courses and review student applications.</p>
-            </div>
-            <a href="{% url 'courses' %}" class="btn btn-outline-secondary">View Public Courses</a>
-        </div>
+<div class="admin-shell">
+    <div class="container-fluid px-lg-4">
+        <div class="admin-layout">
+            <aside class="admin-sidebar">
+                <h2>Elevana Admin</h2>
+                <p>Manage learning programs, departments, and admissions.</p>
+                <nav class="admin-nav" aria-label="Admin modules">
+                    <a href="#overview">Overview</a>
+                    <a href="#departments">Departments</a>
+                    <a href="#courses">Courses</a>
+                    <a href="#applications">Applications</a>
+                </nav>
+            </aside>
 
-        <div class="row mb-4">
-            <div class="col-md-2 col-sm-6 mb-3">
-                <div class="border p-3 h-100">
-                    <span class="text-muted">Courses</span>
-                    <h3 class="mb-0">{{ stats.courses }}</h3>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-6 mb-3">
-                <div class="border p-3 h-100">
-                    <span class="text-muted">Applications</span>
-                    <h3 class="mb-0">{{ stats.applications }}</h3>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-6 mb-3">
-                <div class="border p-3 h-100">
-                    <span class="text-muted">Pending</span>
-                    <h3 class="mb-0">{{ stats.pending }}</h3>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-6 mb-3">
-                <div class="border p-3 h-100">
-                    <span class="text-muted">Approved</span>
-                    <h3 class="mb-0">{{ stats.accepted }}</h3>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-6 mb-3">
-                <div class="border p-3 h-100">
-                    <span class="text-muted">Rejected</span>
-                    <h3 class="mb-0">{{ stats.rejected }}</h3>
-                </div>
-            </div>
-        </div>
+            <main class="admin-content">
+                <section class="admin-hero" id="overview">
+                    <div>
+                        <h1>Course Admin Dashboard</h1>
+                        <p class="text-muted mb-0">Create departments, publish courses, and review student applications from one workspace.</p>
+                    </div>
+                    <a href="{% url 'courses' %}" class="btn btn-outline-secondary">View Public Courses</a>
+                </section>
 
-        <div class="row">
-            <div class="col-lg-4 mb-4">
-                <h2>Create Course</h2>
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {% for field in form %}
-                        <div class="form-group">
-                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                            {{ field }}
-                            {% if field.help_text %}
-                                <small class="form-text text-muted">{{ field.help_text }}</small>
-                            {% endif %}
-                            {% for error in field.errors %}
-                                <div class="text-danger">{{ error }}</div>
-                            {% endfor %}
+                <section class="stats-grid" aria-label="Dashboard statistics">
+                    <div class="stat-card">
+                        <span>Departments</span>
+                        <strong>{{ stats.departments }}</strong>
+                    </div>
+                    <div class="stat-card">
+                        <span>Courses</span>
+                        <strong>{{ stats.courses }}</strong>
+                    </div>
+                    <div class="stat-card">
+                        <span>Pending</span>
+                        <strong>{{ stats.pending }}</strong>
+                    </div>
+                    <div class="stat-card">
+                        <span>Approved</span>
+                        <strong>{{ stats.accepted }}</strong>
+                    </div>
+                    <div class="stat-card">
+                        <span>Rejected</span>
+                        <strong>{{ stats.rejected }}</strong>
+                    </div>
+                </section>
+
+                <section class="admin-panel" id="departments">
+                    <div class="admin-panel-header">
+                        <div>
+                            <h2>Departments</h2>
+                            <p class="text-muted mb-0">Group courses by department so students can browse related programs.</p>
                         </div>
-                    {% endfor %}
-                    {% if form.non_field_errors %}
-                        <div class="alert alert-danger">{{ form.non_field_errors }}</div>
-                    {% endif %}
-                    <button type="submit" class="btn btn-success btn-block">Create Course</button>
-                </form>
-            </div>
+                    </div>
 
-            <div class="col-lg-8 mb-4">
-                <h2>Courses</h2>
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>Course</th>
-                                <th>Department</th>
-                                <th>Price</th>
-                                <th>Applications</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for course in courses %}
-                                <tr>
-                                    <td>{{ course.title }}</td>
-                                    <td>{{ course.department.name }}</td>
-                                    <td>{{ course.currency }} {{ course.price }} / {{ course.get_pricing_type_display }}</td>
-                                    <td>{{ course.applications.count }}</td>
-                                    <td class="text-right">
-                                        <a href="{% url 'edit_course' course.slug %}" class="btn btn-sm btn-outline-primary">Edit</a>
-                                    </td>
-                                </tr>
-                            {% empty %}
-                                <tr>
-                                    <td colspan="5">No courses have been created yet.</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+                    <div class="row">
+                        <div class="col-lg-5 mb-4 mb-lg-0">
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="form_action" value="create_department">
+                                {% for field in department_form %}
+                                    <div class="form-group">
+                                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                        {{ field }}
+                                        {% for error in field.errors %}
+                                            <div class="text-danger">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                                {% if department_form.non_field_errors %}
+                                    <div class="alert alert-danger">{{ department_form.non_field_errors }}</div>
+                                {% endif %}
+                                <button type="submit" class="btn btn-success btn-block">Add Department</button>
+                            </form>
+                        </div>
 
-        <h2>Student Applications</h2>
-        <div class="table-responsive">
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>Student</th>
-                        <th>Course</th>
-                        <th>Contact</th>
-                        <th>Education</th>
-                        <th>Status</th>
-                        <th>Payment</th>
-                        <th>Submitted</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for application in applications %}
-                        <tr>
-                            <td>
-                                <strong>{{ application.email }}</strong><br>
-                                <small>ID: {{ application.id_number }}</small>
-                            </td>
-                            <td>
-                                {{ application.course.title }}<br>
-                                <small>{{ application.course.department.name }}</small>
-                            </td>
-                            <td>
-                                {{ application.first_mobile_number }}<br>
-                                <small>{{ application.current_residence_town }}</small>
-                            </td>
-                            <td>
-                                {{ application.get_highest_education_level_display }}<br>
-                                <small>{{ application.mean_grade }} - {{ application.year_of_completion }}</small>
-                            </td>
-                            <td>{{ application.get_status_display }}</td>
-                            <td>{{ application.get_payment_status_display }}</td>
-                            <td>{{ application.submitted_at|date:"M d, Y H:i" }}</td>
-                            <td class="text-right">
-                                <form method="post" action="{% url 'update_application_status' application.pk 'approve' %}" class="d-inline">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-sm btn-success">Approve</button>
-                                </form>
-                                <form method="post" action="{% url 'update_application_status' application.pk 'reject' %}" class="d-inline">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-sm btn-danger">Reject</button>
-                                </form>
-                            </td>
-                        </tr>
-                    {% empty %}
-                        <tr>
-                            <td colspan="8">No student applications have been submitted yet.</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                        <div class="col-lg-7">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Department</th>
+                                            <th>Description</th>
+                                            <th>Courses</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for department in departments %}
+                                            <tr>
+                                                <td><strong>{{ department.name }}</strong></td>
+                                                <td>{{ department.description|default:"No description yet."|truncatechars:80 }}</td>
+                                                <td>{{ department.courses.count }}</td>
+                                            </tr>
+                                        {% empty %}
+                                            <tr>
+                                                <td colspan="3">No departments have been created yet.</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="admin-panel" id="courses">
+                    <div class="admin-panel-header">
+                        <div>
+                            <h2>Courses</h2>
+                            <p class="text-muted mb-0">Create new courses and manage the published course list.</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-5 mb-4 mb-xl-0">
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input type="hidden" name="form_action" value="create_course">
+                                <div class="form-grid">
+                                    {% for field in course_form %}
+                                        <div class="form-group {% if field.name == 'description' or field.name == 'image' %}full-width{% endif %}">
+                                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                            {{ field }}
+                                            {% if field.help_text %}
+                                                <small class="form-text text-muted">{{ field.help_text }}</small>
+                                            {% endif %}
+                                            {% for error in field.errors %}
+                                                <div class="text-danger">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                {% if course_form.non_field_errors %}
+                                    <div class="alert alert-danger">{{ course_form.non_field_errors }}</div>
+                                {% endif %}
+                                <button type="submit" class="btn btn-success btn-block">Create Course</button>
+                            </form>
+                        </div>
+
+                        <div class="col-xl-7">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Course</th>
+                                            <th>Department</th>
+                                            <th>Price</th>
+                                            <th>Applications</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for course in courses %}
+                                            <tr>
+                                                <td><strong>{{ course.title }}</strong></td>
+                                                <td>{{ course.department.name }}</td>
+                                                <td>{{ course.currency }} {{ course.price }} / {{ course.get_pricing_type_display }}</td>
+                                                <td>{{ course.applications.count }}</td>
+                                                <td class="text-right">
+                                                    <a href="{% url 'edit_course' course.slug %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                                                </td>
+                                            </tr>
+                                        {% empty %}
+                                            <tr>
+                                                <td colspan="5">No courses have been created yet.</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="admin-panel" id="applications">
+                    <div class="admin-panel-header">
+                        <div>
+                            <h2>Student Applications</h2>
+                            <p class="text-muted mb-0">Review applicants, approve or reject, and notify students by email.</p>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Course</th>
+                                    <th>Contact</th>
+                                    <th>Education</th>
+                                    <th>Status</th>
+                                    <th>Payment</th>
+                                    <th>Submitted</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for application in applications %}
+                                    <tr>
+                                        <td>
+                                            <strong>{{ application.email }}</strong><br>
+                                            <small>ID: {{ application.id_number }}</small>
+                                        </td>
+                                        <td>
+                                            {{ application.course.title }}<br>
+                                            <small>{{ application.course.department.name }}</small>
+                                        </td>
+                                        <td>
+                                            {{ application.first_mobile_number }}<br>
+                                            <small>{{ application.current_residence_town }}</small>
+                                        </td>
+                                        <td>
+                                            {{ application.get_highest_education_level_display }}<br>
+                                            <small>{{ application.mean_grade }} - {{ application.year_of_completion }}</small>
+                                        </td>
+                                        <td>
+                                            <span class="status-pill {{ application.status }}">{{ application.get_status_display }}</span>
+                                        </td>
+                                        <td>{{ application.get_payment_status_display }}</td>
+                                        <td>{{ application.submitted_at|date:"M d, Y H:i" }}</td>
+                                        <td>
+                                            <div class="action-row">
+                                                <form method="post" action="{% url 'update_application_status' application.pk 'approve' %}">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-sm btn-success">Approve</button>
+                                                </form>
+                                                <form method="post" action="{% url 'update_application_status' application.pk 'reject' %}">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-sm btn-danger">Reject</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="8">No student applications have been submitted yet.</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
         </div>
     </div>
 </div>
